@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Logged in!
         currentUserId = session.user.id;
         authOverlay.classList.add('hidden');
+        document.body.classList.remove('auth-active');
         emailDisplay.textContent = session.user.email;
         emailDisplay.classList.remove('hidden');
         
@@ -76,6 +77,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Logged out!
         currentUserId = null;
         authOverlay.classList.remove('hidden');
+        document.body.classList.add('auth-active');
         emailDisplay.textContent = '';
         emailDisplay.classList.add('hidden');
         

@@ -1410,9 +1410,11 @@ body.light-theme .moon-icon { display: none; }
   background-color: var(--hover-bg);
 }
 
-.mobile-menu-btn i {
+.mobile-menu-btn i,
+.mobile-menu-btn svg {
   width: 24px;
   height: 24px;
+  display: block;
 }
 
 /* Sidebar overlay */
@@ -1546,6 +1548,22 @@ body.light-theme .moon-icon { display: none; }
   .jump-selector-container {
     display: none; /* Hide jump select on small screens to avoid UI clutter */
   }
+}
+
+/* Scroll-locking and content hiding when logged out */
+body.auth-active {
+  overflow: hidden !important;
+  height: 100vh !important;
+  position: fixed !important;
+  width: 100% !important;
+}
+
+body.auth-active .main-content {
+  display: none !important;
+}
+
+body.auth-active .sidebar {
+  display: none !important;
 }
 
 /* ================= AUTHENTICATION OVERLAY ================= */
