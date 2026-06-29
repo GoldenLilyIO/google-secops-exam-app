@@ -236,7 +236,7 @@ async function loadUserProgress(userId) {
   updateHeaderStats();
 }
 
-function setSyncStatus(status) {
+function setSyncStatus(status, errorMessage = '') {
   const indicator = document.getElementById('cloud-sync-indicator');
   const icon = document.getElementById('cloud-sync-icon');
   const text = document.getElementById('cloud-sync-text');
@@ -250,16 +250,19 @@ function setSyncStatus(status) {
   
   if (status === 'saving') {
     indicator.className = 'stat-pill cloud-sync-indicator syncing';
+    indicator.title = 'Cloud Sync Status';
     icon.setAttribute('data-lucide', 'loader-2');
     icon.classList.add('spin-anim');
     text.textContent = 'Saving...';
   } else if (status === 'saved') {
     indicator.className = 'stat-pill cloud-sync-indicator';
+    indicator.title = 'Cloud Sync Status';
     icon.setAttribute('data-lucide', 'cloud');
     icon.classList.remove('spin-anim');
     text.textContent = 'Saved';
   } else if (status === 'error') {
     indicator.className = 'stat-pill cloud-sync-indicator error';
+    indicator.title = errorMessage || 'Error Syncing';
     icon.setAttribute('data-lucide', 'alert-circle');
     icon.classList.remove('spin-anim');
     text.textContent = 'Error Syncing';
@@ -290,7 +293,7 @@ async function saveUserProgress() {
     setSyncStatus('saved');
   } catch (err) {
     console.error("Error syncing progress to database:", err);
-    setSyncStatus('error');
+    setSyncStatus('error', err.message || err.toString());
   }
   
   updateHeaderStats();
