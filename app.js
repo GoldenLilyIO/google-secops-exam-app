@@ -275,6 +275,22 @@ function initTheme() {
 
 // ================= NAVIGATION MANAGER =================
 function initNavigation() {
+  const menuToggle = document.getElementById('mobile-menu-toggle');
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  
+  if (menuToggle && overlay) {
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.add('open');
+      overlay.classList.remove('hidden');
+    });
+    
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      overlay.classList.add('hidden');
+    });
+  }
+
   Object.keys(navButtons).forEach(key => {
     navButtons[key].addEventListener('click', () => {
       // Prevent nav switch if exam is running and user clicks elsewhere without confirmation
@@ -287,6 +303,12 @@ function initNavigation() {
       }
       
       switchView(navButtons[key].getAttribute('data-view'));
+      
+      // Auto-close sidebar drawer on mobile after clicking
+      if (sidebar && sidebar.classList.contains('open') && overlay) {
+        sidebar.classList.remove('open');
+        overlay.classList.add('hidden');
+      }
     });
   });
 

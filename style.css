@@ -1391,39 +1391,160 @@ body.light-theme .moon-icon { display: none; }
   }
 }
 
+/* Mobile menu button styles */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+}
+
+.mobile-menu-btn:hover {
+  background-color: var(--hover-bg);
+}
+
+.mobile-menu-btn i {
+  width: 24px;
+  height: 24px;
+}
+
+/* Sidebar overlay */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(11, 15, 25, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 9998;
+  animation: fadeIn 0.25s ease;
+}
+
 @media (max-width: 768px) {
   body {
     flex-direction: column;
   }
+  
+  /* Show menu button in header */
+  .mobile-menu-btn {
+    display: inline-flex;
+  }
+  
+  /* Convert Sidebar to Drawer */
   .sidebar {
-    width: 100%;
-    position: relative;
-    border-right: none;
-    border-bottom: 1px solid var(--border-color);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    transform: translateX(-100%);
+    z-index: 9999;
+    box-shadow: var(--shadow-lg);
+    background-color: var(--sidebar-bg);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .sidebar-header {
-    margin-bottom: 20px;
+  
+  .sidebar.open {
+    transform: translateX(0);
   }
+  
+  /* Reduce content margins and paddings */
   .main-content {
     margin-left: 0;
-    padding: 20px;
+    padding: 20px 16px;
   }
+  
+  .top-header {
+    justify-content: flex-start;
+    gap: 8px;
+  }
+  
+  .user-stats-summary {
+    margin-left: auto;
+  }
+  
   .dashboard-hero {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
     gap: 24px;
-    padding: 24px;
+    padding: 28px 20px;
   }
+  
+  .hero-text p {
+    font-size: 14px;
+  }
+  
   .hero-stats {
     width: 100%;
     justify-content: center;
+    padding: 16px 20px;
   }
+  
+  /* Compress glass panel padding for mobile spacing */
+  .glass-panel {
+    padding: 20px 16px;
+  }
+  
+  .modes-grid {
+    grid-template-columns: 1fr;
+  }
+  
   .review-header {
     flex-direction: column;
     align-items: stretch;
+    gap: 16px;
   }
+  
   .search-box {
     width: 100%;
+  }
+  
+  .filter-controls {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .filter-btn {
+    flex: 1;
+    min-width: 100px;
+    text-align: center;
+    padding: 8px 12px;
+  }
+  
+  /* Make Exam layout single column */
+  .exam-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  /* Render Question grid responsive with no overflow */
+  .exam-grid {
+    grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
+    max-height: 250px;
+  }
+  
+  .result-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .result-actions {
+    flex-direction: column;
+  }
+  
+  .jump-selector-container {
+    display: none; /* Hide jump select on small screens to avoid UI clutter */
   }
 }
 
