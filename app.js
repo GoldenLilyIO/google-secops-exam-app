@@ -251,6 +251,18 @@ function resetLocalState() {
   localStorage.removeItem('secops_active_exam');
 }
 
+function updateHeaderStats() {
+  const total = questions.length || 133;
+  const completed = Object.keys(practiceState.answers).length;
+  const bookmarked = bookmarks.size;
+  
+  const completedEl = document.getElementById('header-completed-count');
+  const bookmarkedEl = document.getElementById('header-bookmarked-count');
+  
+  if (completedEl) completedEl.textContent = `${completed}/${total}`;
+  if (bookmarkedEl) bookmarkedEl.textContent = bookmarked;
+}
+
 // ================= THEME MANAGER =================
 function initTheme() {
   const savedTheme = localStorage.getItem('secops_theme') || 'dark';
