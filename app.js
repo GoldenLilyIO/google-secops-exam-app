@@ -6,10 +6,11 @@ import { supabase } from './config.js';
 let questions = [];
 let bookmarks = new Set();
 let examHistory = [];
-let practiceState = {
+let practiceState = JSON.parse(localStorage.getItem('secops_practice_state')) || {
   currentIndex: 0,
   answers: {} // questionNum -> selectedArray
 };
+if (!practiceState.answers) practiceState.answers = {};
 let activeExam = null;
 
 // Auth state
