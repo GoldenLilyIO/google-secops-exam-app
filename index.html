@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Cloud Professional SecOps Exam Practice</title>
+  
+  <!-- Google Fonts: Outfit and Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.395.0/dist/umd/lucide.min.js"></script>
+  
+  <!-- Styling -->
+  <script type="module" crossorigin src="./assets/index-CU6-Ugzl.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BH1rF9sq.css">
+</head>
+<body class="dark-theme">
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span class="logo-text">SecOps Prep</span>
+    </div>
+    
+    <nav class="nav-menu">
+      <button class="nav-item active" id="nav-dashboard" data-view="dashboard-view">
+        <i data-lucide="layout-dashboard"></i>
+        <span>Dashboard</span>
+      </button>
+      <button class="nav-item" id="nav-practice" data-view="practice-view">
+        <i data-lucide="book-open"></i>
+        <span>Practice Mode</span>
+      </button>
+      <button class="nav-item" id="nav-exam" data-view="exam-view">
+        <i data-lucide="graduation-cap"></i>
+        <span>Exam Mode</span>
+      </button>
+      <button class="nav-item" id="nav-review" data-view="review-view">
+        <i data-lucide="clipboard-check"></i>
+        <span>Review Center</span>
+      </button>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <div class="theme-toggle">
+        <button id="theme-btn" title="Toggle Light/Dark Mode">
+          <i data-lucide="sun" class="sun-icon"></i>
+          <i data-lucide="moon" class="moon-icon"></i>
+          <span>Toggle Theme</span>
+        </button>
+      </div>
+      <div class="badge-status">
+        <span class="pulse-dot"></span>
+        <span class="badge-label">133 Questions Ready</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Wrapper -->
+  <main class="main-content">
+    <header class="top-header">
+      <h1 class="view-title" id="current-view-title">Dashboard</h1>
+      <div class="user-stats-summary">
+        <div class="stat-pill" title="Total completed questions">
+          <i data-lucide="check-circle-2" class="text-success"></i>
+          <span id="header-completed-count">0/133</span>
+        </div>
+        <div class="stat-pill" title="Bookmarked questions">
+          <i data-lucide="bookmark" class="text-warning"></i>
+          <span id="header-bookmarked-count">0</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- VIEWS CONTAINER -->
+    <div class="views-container">
+      
+      <!-- ================= DASHBOARD VIEW ================= -->
+      <section id="dashboard-view" class="view-pane active">
+        <div class="dashboard-hero">
+          <div class="hero-text">
+            <h2>Google Cloud Professional</h2>
+            <h3>Security Operations Engineer</h3>
+            <p>Master Google Security Operations (SecOps), Chronicle SIEM/SOAR, YARA-L detection rules, and security incident response.</p>
+          </div>
+          <div class="hero-stats">
+            <div class="progress-circle-container">
+              <svg class="progress-ring" width="120" height="120">
+                <circle class="progress-ring-bg" stroke="rgba(255,255,255,0.06)" stroke-width="8" fill="transparent" r="50" cx="60" cy="60"/>
+                <circle class="progress-ring-bar" id="dashboard-progress-ring" stroke="var(--accent-color)" stroke-width="8" fill="transparent" r="50" cx="60" cy="60"/>
+              </svg>
+              <div class="progress-percent" id="dashboard-completion-percent">0%</div>
+            </div>
+            <div class="hero-stats-meta">
+              <span class="stat-label">Overall Completion</span>
+              <span class="stat-subtext" id="dashboard-completion-ratio">0 of 133 Questions</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-grid">
+          <!-- Modes Overview Card -->
+          <div class="dashboard-card glass-panel wide-card">
+            <div class="card-header">
+              <i data-lucide="compass" class="card-icon text-accent"></i>
+              <h4>Study Modes</h4>
+            </div>
+            <div class="modes-grid">
+              <div class="mode-select-card" id="start-practice-card">
+                <div class="mode-icon practice">
+                  <i data-lucide="book-open"></i>
+                </div>
+                <h5>Practice Mode</h5>
+                <p>Study at your own pace with instant answers, explanations, and community votes.</p>
+                <button class="btn btn-secondary">Start Practice</button>
+              </div>
+
+              <div class="mode-select-card" id="start-exam-card">
+                <div class="mode-icon exam">
+                  <i data-lucide="graduation-cap"></i>
+                </div>
+                <h5>Mock Exam</h5>
+                <p>Test your knowledge with 50 random questions under realistic exam conditions.</p>
+                <button class="btn btn-primary">Start Exam</button>
+              </div>
+
+              <div class="mode-select-card" id="start-review-card">
+                <div class="mode-icon review">
+                  <i data-lucide="clipboard-check"></i>
+                </div>
+                <h5>Review Center</h5>
+                <p>Focus on your bookmarked questions and revise previous errors.</p>
+                <button class="btn btn-secondary">Open Review</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Statistics -->
+          <div class="dashboard-card glass-panel">
+            <div class="card-header">
+              <i data-lucide="trending-up" class="card-icon text-info"></i>
+              <h4>Your Progress</h4>
+            </div>
+            <div class="stats-list">
+              <div class="stat-item">
+                <div class="stat-value" id="stats-practice-accuracy">0%</div>
+                <div class="stat-name">Practice Accuracy</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value" id="stats-exams-taken">0</div>
+                <div class="stat-name">Mock Exams Completed</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value" id="stats-exam-high-score">--</div>
+                <div class="stat-name">Exam High Score</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Exam History -->
+          <div class="dashboard-card glass-panel wide-card">
+            <div class="card-header">
+              <i data-lucide="history" class="card-icon text-success"></i>
+              <h4>Exam History</h4>
+            </div>
+            <div class="history-table-container">
+              <table class="history-table" id="exam-history-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Score</th>
+                    <th>Time Spent</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="exam-history-tbody">
+                  <!-- History rows dynamic -->
+                  <tr class="empty-state-row">
+                    <td colspan="5">No exams taken yet. Start a Mock Exam to test your skills!</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PRACTICE VIEW ================= -->
+      <section id="practice-view" class="view-pane">
+        <div class="workspace-layout">
+          <!-- Question Container -->
+          <div class="question-container glass-panel">
+            <div class="question-header">
+              <div class="badge badge-topic">Topic 1</div>
+              <div class="question-meta">
+                Question <span id="practice-current-num">1</span> of 133
+              </div>
+              <button class="btn-bookmark" id="practice-bookmark-btn" title="Bookmark Question">
+                <i data-lucide="bookmark"></i>
+              </button>
+            </div>
+            
+            <div class="question-body">
+              <p id="practice-question-text" class="question-text">Question text goes here...</p>
+              
+              <!-- Multiple choice options list -->
+              <div id="practice-options-list" class="options-list">
+                <!-- Options injected dynamically -->
+              </div>
+            </div>
+            
+            <div class="question-actions">
+              <button class="btn btn-secondary" id="practice-prev-btn"><i data-lucide="chevron-left"></i> Previous</button>
+              
+              <div class="jump-selector-container">
+                <label for="practice-jump">Jump to:</label>
+                <select id="practice-jump" class="select-dropdown">
+                  <!-- Generated dynamic options -->
+                </select>
+              </div>
+
+              <div class="action-buttons">
+                <button class="btn btn-primary" id="practice-submit-btn">Check Answer</button>
+                <button class="btn btn-success hidden" id="practice-next-btn">Next <i data-lucide="chevron-right"></i></button>
+              </div>
+            </div>
+
+            <!-- Practice Answer Feedback Pane -->
+            <div class="answer-feedback-pane hidden" id="practice-feedback-pane">
+              <div class="feedback-header">
+                <i data-lucide="info" class="feedback-icon"></i>
+                <h4>Explanation & Answers</h4>
+              </div>
+              <div class="feedback-body">
+                <div class="correct-answer-display">
+                  Correct Answer: <span class="answer-badge" id="practice-correct-answer-val">A</span>
+                </div>
+                <div class="vote-distribution-container" id="practice-vote-distribution-container">
+                  <h5>Community Vote Distribution</h5>
+                  <div class="vote-bars" id="practice-vote-bars">
+                    <!-- Dynamic vote distribution bars -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= EXAM VIEW ================= -->
+      <section id="exam-view" class="view-pane">
+        
+        <!-- Exam setup config before start -->
+        <div id="exam-setup-card" class="glass-panel centered-card">
+          <i data-lucide="graduation-cap" class="huge-icon text-accent"></i>
+          <h3>Start a Mock Exam</h3>
+          <p class="setup-desc">Simulate a real Google Cloud SecOps Engineer exam environment. You will be tested on a random selection of 50 questions with a timer.</p>
+          
+          <div class="setup-details">
+            <div class="detail-item">
+              <i data-lucide="list"></i>
+              <span><strong>50</strong> Questions</span>
+            </div>
+            <div class="detail-item">
+              <i data-lucide="timer"></i>
+              <span><strong>120</strong> Minutes</span>
+            </div>
+            <div class="detail-item">
+              <i data-lucide="alert-triangle"></i>
+              <span>No instant feedback during exam</span>
+            </div>
+          </div>
+          
+          <button class="btn btn-primary btn-large" id="start-exam-btn">Begin Exam</button>
+        </div>
+
+        <!-- Active Exam Workspace -->
+        <div id="exam-active-workspace" class="exam-layout hidden">
+          <!-- Main Question Area -->
+          <div class="exam-main">
+            <div class="exam-header glass-panel">
+              <div class="exam-meta">
+                <span class="exam-q-num">Question <span id="exam-current-num">1</span> of 50</span>
+                <span class="exam-flag-btn" id="exam-flag-btn">
+                  <input type="checkbox" id="exam-flag-checkbox">
+                  <label for="exam-flag-checkbox"><i data-lucide="flag"></i> Flag for Review</label>
+                </span>
+              </div>
+              <div class="exam-timer-container">
+                <i data-lucide="clock"></i>
+                <span id="exam-timer">02:00:00</span>
+              </div>
+              <button class="btn btn-danger" id="exam-finish-btn">End Exam</button>
+            </div>
+
+            <div class="question-container glass-panel mt-4">
+              <div class="question-body">
+                <p id="exam-question-text" class="question-text">Exam question text goes here...</p>
+                <div id="exam-options-list" class="options-list">
+                  <!-- Options injected dynamically -->
+                </div>
+              </div>
+              
+              <div class="question-actions">
+                <button class="btn btn-secondary" id="exam-prev-btn"><i data-lucide="chevron-left"></i> Previous</button>
+                <button class="btn btn-primary" id="exam-next-btn">Next <i data-lucide="chevron-right"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Question Grid Sidebar -->
+          <aside class="exam-sidebar glass-panel">
+            <h4>Questions</h4>
+            <div class="exam-grid" id="exam-grid-container">
+              <!-- Dynamically generated grids (1-50) -->
+            </div>
+            <div class="grid-legend">
+              <div class="legend-item"><span class="grid-box legendary unanswered"></span> Unanswered</div>
+              <div class="legend-item"><span class="grid-box legendary answered"></span> Answered</div>
+              <div class="legend-item"><span class="grid-box legendary flagged"></span> Flagged</div>
+            </div>
+          </aside>
+        </div>
+
+        <!-- Exam Result Details Pane -->
+        <div id="exam-result-card" class="glass-panel centered-card hidden">
+          <div class="result-circle-container">
+            <svg class="progress-ring" width="160" height="160">
+              <circle class="progress-ring-bg" stroke="rgba(255,255,255,0.06)" stroke-width="12" fill="transparent" r="65" cx="80" cy="80"/>
+              <circle class="progress-ring-bar" id="result-progress-ring" stroke="var(--success-color)" stroke-width="12" fill="transparent" r="65" cx="80" cy="80"/>
+            </svg>
+            <div class="result-score" id="result-score-percent">0%</div>
+          </div>
+          
+          <h3 id="result-title">Congratulations!</h3>
+          <p class="result-feedback" id="result-feedback-text">You passed the mock exam!</p>
+          
+          <div class="result-stats-grid">
+            <div class="result-stat-card">
+              <span class="value" id="result-stat-correct">0/50</span>
+              <span class="label">Correct</span>
+            </div>
+            <div class="result-stat-card">
+              <span class="value" id="result-stat-incorrect">0/50</span>
+              <span class="label">Incorrect</span>
+            </div>
+            <div class="result-stat-card">
+              <span class="value" id="result-stat-time">00:00</span>
+              <span class="label">Time Taken</span>
+            </div>
+          </div>
+          
+          <div class="result-actions">
+            <button class="btn btn-secondary" id="result-back-dash-btn">Go to Dashboard</button>
+            <button class="btn btn-primary" id="result-review-btn">Review Questions</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= REVIEW CENTER VIEW ================= -->
+      <section id="review-view" class="view-pane">
+        <div class="review-header glass-panel">
+          <div class="filter-controls">
+            <button class="filter-btn active" id="review-filter-all">All Questions</button>
+            <button class="filter-btn" id="review-filter-bookmarks">Bookmarked</button>
+            <button class="filter-btn" id="review-filter-incorrect">Incorrectly Answered</button>
+          </div>
+          
+          <div class="search-box">
+            <i data-lucide="search"></i>
+            <input type="text" id="review-search-input" placeholder="Search questions, keywords, tags...">
+          </div>
+        </div>
+
+        <div class="review-list" id="review-list-container">
+          <!-- Dynamic scrollable list of question panels -->
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Active JavaScript Main Script -->
+</body>
+</html>

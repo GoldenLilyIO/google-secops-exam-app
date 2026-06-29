@@ -1,0 +1,2015 @@
+[
+  {
+    "number": 1,
+    "text": "You are responsible for identifying suspicious activity and security events at your organization. You have been asked to search in Google Security\nOperations (SecOps) for network traffic associated with an active HTTP backdoor that runs on TCP port 5555. You want to use the most effective\napproach to identify traffic originating from the server that is running the backdoor. What should you do?",
+    "options": [
+      "Detect on events where network.ApplicationProtocol is HTTP.",
+      "Detect on events where target.port is 5555.",
+      "Detect on events where principal.port is 5555.",
+      "Detect on events where network.ip_protocol is TCP."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "C (78%) B (22%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 2,
+    "text": "You are an incident responder at your organization using Google Security Operations (SecOps) for monitonng and investigation. You discover that\na critical production server, which handles financial transactions, shows signs of unauthorized file changes and network scanning from a\nsuspicious IP address. You suspect that persistence mechanisms may have been installed. You need to use Google SecOps to immediately\ncontain the threat while ensuring that forensic data remains available for investigation. What should you do first?",
+    "options": [
+      "Use the firewall integration to submit the IP address to a network block list to inhibit internet access from that machine.",
+      "Deploy emergency patches, and reboot the server to remove malicious persistence.",
+      "Use the EDR integration to quarantine the compromised asset.",
+      "Use VirusTotal to enrich the IP address and retrieve the domain. Add the domain to the proxy block list."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "C (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 3,
+    "text": "Your organization uses Google Security Operations (SecOps). You discover frequent file downloads from a shared workspace within a short time\nwindow. You need to configure a rule in Google SecOps that identifies these suspicious events and assigns higher risk scores to repeated\nanomalies. What should you do?",
+    "options": [
+      "Configure a rule that flags file download events with the highest risk score, regardless of time frame.",
+      "Create a frequency-based YARA-L detection rule that assigns a risk outcome score and is triggered when multiple suspicious downloads\noccur within a defined time frame.",
+      "Configure a single-event YARA-L detection rule that assigns a risk outcome score and is triggered when a user downloads a large number of\nfiles in 24 hours.",
+      "Enable default curated detections, and use automatic alerting for single file download events."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "B (83%) D (17%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 4,
+    "text": "You are implementing Google Security Operations (SecOps) at your organization. You discover that the current detection rules are too noisy. Due\nto the high volume of alerts, some true positives might be missed. You want to ingest additional context sources to reduce false positives in your\nsecurity detections and to improve the overall positive ratio of the alerts. What should you do?",
+    "options": [
+      "Ingest high-value asset (HVA) data from your configuration management database (CMDB) system to increase the priority of the alerts\nbased on the sensitivity of the assets found in the detection rules.",
+      "Ingest dark web forum handlers from your threat intelligence system to match dark web principals within the detection rules.",
+      "Ingest IOCs from your threat intelligence system to validate the IP addresses, domains and hashes with the detection rules.",
+      "Ingest tactics, techniques, and procedures (TTPs) from your threat intelligence system to validate the processes and tools with the\ndetection rules."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "A (75%) C (25%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 5,
+    "text": "You are developing a new detection rule in Google Security Operations (SecOps). You are defining the YARA-L logic that includes complex event,\nmatch, and condition sections. You need to develop and test the rule to ensure that the detections are accurate before the rule is migrated to\nproduction. You want to minimize impact to production processes. What should you do?",
+    "options": [
+      "Develop the rule logic in the UDM search, review the search output to inform changes to filters and logic, and copy the rule into the Rules\nEditor.",
+      "Use Gemini in Google SecOps to develop the rule by providing a description of the parameters and conditions, and transfer the rule into the\nRules Editor.",
+      "Develop the rule in the Rules Editor, define the sections the rule logic, and test the rule using the test rule feature.",
+      "Develop the rule in the Rules Editor, define the sections of the rule logic, and test the rule by setting it to live but not alerting. Run a YARA-L\nretrohunt from the rules dashboard."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "C (85%) D (15%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 6,
+    "text": "Your organization has recently acquired Company A, which has its own SOC and security tooling. You have already configured ingestion of\nCompany A's security telemetry and migrated their detection rules to Google Security Operations (SecOps). You now need to enable Company A's\nanalysts to work their cases in Google SecOps. You need to ensure that Company A's analysts: do not have access to any case data originating\nfrom outside of Company",
+    "options": [
+      "are able to re-purpose playbooks previously developed by your organization's employees.\nYou need to minimize effort to implement your solution. What is the first step you should take?\nA. Acquire a second Google SecOps SOAR tenant for Company A.",
+      "Provision a new service account for Company A.",
+      "Define a new SOC role for Company A.",
+      "Create a Google SecOps SOAR environment for Company A."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "D (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 7,
+    "text": "You have identified and isolated a new malware sample installed by an advanced threat group that you believe was developed specifically for an\nattack against your organization. You want to quickly and efficiently analyze this malware to get IOCs without alerting the threat group. What\nshould you do?",
+    "options": [
+      "Search for the threat group in Google Threat Intelligence.",
+      "Upload the malware to Google Threat Intelligence by using VirusTotal.",
+      "Upload the malware to Google Threat Intelligence by using Private Scanning.",
+      "Calculate the file checksum for the malware, and search for the checksum in GoogleThreat Intelligence by using VirusTotal."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 8,
+    "text": "Your organization uses Cloud Identity as their identity provider (IdP) and is a Google Security Operations (SecOps) customer You need to grant a\ngroup of users access to the Google SecOps instance with read-only access to all resources, including detection engine rules. How should this be\nconfigured?",
+    "options": [
+      "Create a Google Group and add the required users. Grant the roles/chronicle.Viewer IAM role to the group on the project associated with\nyour Google SecOps Instance.",
+      "Create a Google Group and add the required users. Grant the roles/chronicle.limitedViewer IAM role to the group on the project associated\nwith your Google SecOps instance.",
+      "Create a workforce identity pool at the organization level. Grant the roles/chronicle.editor IAM role to the\nprincipalSet://iam.googleapis.com/locations/global/workforcePools/POOL_ID/group/GROUP_ID principal set on the project associated with\nyour Google SecOps instance.",
+      "Create a workforce identity pool at the organization level Grant the roles/chronicle.limitedViewer IAM role to the\nprincipalSet://iam.googleapis.com/locations/global/workforcePools/POOL_ID/group/GROUP_ID principal set on the project associated with\nyour Google SecOps Instance."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "A (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 9,
+    "text": "Your team is responsible for cybersecurity for a large multinational corporation. You have been tasked with identifying unknown command and\ncontrol nodes (C2s) that are potentially active in your organization's environment. You need to generate a list of potential matches within the next\n24 hours. What should you do?",
+    "options": [
+      "Write a rule in Google Security Operations (SecOps) that scans historic network outbound connections against ingested threat intelligence\nRun the rule in a retrohunt against the full tenant.",
+      "Load network records into BigQuery to identify endpoints that are communicating with domains outside three standard deviations of\nnormal.",
+      "Review Security Health Analytics (SHA) findings in Security Command Center (SCC).",
+      "Write a YARA-L rule in Google Security Operations (SecOps) that compares network traffic of endpoints to low prevalence domains against\nrecent WHOIS registrations."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "D (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 10,
+    "text": "You received an alert from Container Threat Detection that an added binary has been executed in a business critical workload. You need to\ninvestigate and respond to this incident. What should you do? (Choose two.)",
+    "options": [
+      "Notify the workload owner. Follow the response playbook, and ask the threat hunting team to identify the root cause of the incident.",
+      "Review the finding, investigate the pod and related resources, and research the related attack and response methods.",
+      "Review the finding, quarantine the cluster containing the running pod, and delete the running pod to prevent further compromise.",
+      "Silence the alert in the Security Command Center (SCC) console, as the alert is a low severity finding.",
+      "Keep the cluster and pod running, and investigate the behavior to determine whether the activity is malicious."
+    ],
+    "answer": [
+      "A",
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": true
+  },
+  {
+    "number": 11,
+    "text": "You are reviewing the security analyst team's playbook action process. Currently, security analysts navigate to the Playbooks tab in Google\nSecurity Operations (SecOps) for each alert and manually run steps assigned to a user. You need to present all actions from alerts awaiting user\ninput in one location for the analyst to execute. What should you do?",
+    "options": [
+      "Enable approval links in the manual action and display them as clickable links to the user in a HTML widget in the Default Case View tab.",
+      "Add a general insight in your playbook to display manual action details to the user.",
+      "Use the Pending Actions widget in the Default Case View in settings.",
+      "Create an Alert View with the playbook that incorporates the Pending Actions widget."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 12,
+    "text": "You are managing a Google Security Operations (SecOps) implementation for a regional customer. Your customer informs you that logs are\nappearing in the platform after a consistent six-hour delay. After some research, you determine that there is a log time zone issue. You want to fix\nthis problem. What should you do?",
+    "options": [
+      "Modify the default parser and include a default time zone.",
+      "Create a parser extension to correct the time zone.",
+      "Create a custom parser to correct the time zone.",
+      "Modify the UI settings to correct the time zone."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "B (82%) C (18%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 13,
+    "text": "Your organization uses Google Security Operations (SecOps). You need to identify the most commonly occurring processes and applications\nacross your organization's large number of servers so you can implement baselines and exclusion lists on a regular basis. You want to use the\nmost efficient approach. What should you do?",
+    "options": [
+      "Use the UDM lookup feature to identify relevant process-related UDM fields and values.",
+      "Run a UDM search, and review aggregations for relevant process-related UDM fields.",
+      "Review the Google SecOps SIEM Rules & Detections, and identify the most common processes appearing in alerts that are marked as false\npositives.",
+      "Generate a Google SecOps SIEM dashboard based on relevant UDM fields, such as processes, that provides the counts for process names\nand files."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 14,
+    "text": "You work for an organization that uses Security Command Center (SCC) with Event Threat Detection (ETD) enabled. You need to enable ETD\ndetections for data exfiltration attempts from designated sensitive Cloud Storage buckets and BigQuery datasets. You want to minimize Cloud\nLogging costs. What should you do?",
+    "options": [
+      "Enable \"data read\" audit logs only for the designated sensitive Cloud Storage buckets and BigQuery datasets.",
+      "Enable \"data read\" and \"data write\" audit logs only for the designated sensitive Cloud Storage buckets and BigQuery datasets.",
+      "Enable \"data read\" and \"data write\" audit logs for all Cloud Storage buckets and BigQuery datasets throughout the organization.",
+      "Enable VPC Flow Logs for the VPC networks containing resources that access the sensitive Cloud Storage buckets and BigQuery datasets."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 15,
+    "text": "Your company uses Security Command Center (SCC) and Google Security Operations (SecOps). Last week, an attacker attempted to establish\npersistence by generating a key for an unused service account. You need to confirm that you are receiving alerts when keys are created for unused\nservice accounts and that newly created keys are automatically deleted. You want to minimize the amount of manual effort required. What should\nyou do?",
+    "options": [
+      "Generate a YARA-L rule in Google SecOps that detects when a service account key is created. Using the built-in IDE, create a custom action\nin Google SecOps SOAR that deletes the service account key.",
+      "Use the Initial Access: Dormant Service Account Key Created finding from SCC, and ingest this finding into Google SecOps. Create a\ncustom action in Google SecOps SOAR that is triggered on this finding. Use the built-in IDE to build code to delete the service account key.",
+      "Configure a Cloud Logging sink to write logs to a Pub/Sub topic that filters for the methodName:\n\"google.iam.admin.v1.CreateServiceAccountKey\" field. Create a Cloud Run function that subscribes to the Pub/Sub topic and deletes the\nservice account key.",
+      "Use the Initial Access: Dormant Service Account Key Created finding from SCC, and write this finding to a Pub/Sub topic. Create a Cloud\nRun function that subscribes to the Pub/Sub topic and deletes the service account key."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 16,
+    "text": "Your company recently adopted Security Command Center (SCC) but is not using Google Security Operations (SecOps). Your organization has\nthousands of active projects. You need to detect anomalous behavior in your Google Cloud environment by windowing and aggregating data over\na given time period, based on specific log events or advanced calculations. You also need to provide an interface for analysts to triage the alerts.\nHow should you build this capability?",
+    "options": [
+      "Send the logs to Cloud SQL, and run a scheduled query against these events using a Cloud Run scheduled job. Configure an aggregated log\nfilter to stream event-driven logs to a Pub/Sub topic. Configure a trigger to send an email alert when new events are sent to this feed.",
+      "Sink the logs to BigQuery, and configure Cloud Run functions to execute a periodic job and generate normalized alerts in a Pub/Sub topic\nfor findings. Use log-based metrics to generate event-driven alerts and send these alerts to the Pub/Sub topic. Write the alerts as findings\nusing the SCC API.",
+      "Use log-based metrics to generate event-driven alerts for the detection scenarios. Configure a Cloud Monitoring alert policy to send email\nalerts to your security operations team.",
+      "Create a series of aggregated log sinks for each required finding, and send the normalized findings as JSON files to Cloud Storage. Use the\nwrite event to generate an alert."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 17,
+    "text": "Your organization is a Google Security Operations (SecOps) customer and monitors critical assets using a SIEM dashboard. You need to\ndynamically monitor the assets based on a specific asset tag. What should you do?",
+    "options": [
+      "Ask Cloud Customer Care to add a custom filter to the dashboard.",
+      "Add a custom filter to the dashboard.",
+      "Copy an existing dashboard and add a custom filter.",
+      "Export the dashboard configuration to a file, modify the file to add a custom filter, and import the file into Google SecOps."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 18,
+    "text": "A business unit in your organization plans to use Vertex AI to develop models within Google Cloud. The security team needs to implement\ndetective and preventative guardrails to ensure that the environment meets internal security control requirements. How should you secure this\nenvironment?",
+    "options": [
+      "Implement Assured Workloads by creating a folder for the business unit and assigning the relevant control package.",
+      "Implement preconfigured and custom organization policies to meet the control requirements. Apply these policies to the business unit\nfolder.",
+      "Create a policy bundle representing the control requirements using Rego. Implement these policies using Workload Manager. Scope this\nscan to the business unit folder.",
+      "Create a posture consisting of predefined and custom organization policies and predefined and Security Health Analytics (SHA) custom\nmodules. Scope this posture to the business unit folder."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 19,
+    "text": "You are implementing Google Security Operations (SecOps) with multiple log sources. You want to closely monitor the health of the ingestion\npipeline's forwarders and collection agents, and detect silent sources within five minutes. What should you do?",
+    "options": [
+      "Create a notification in Cloud Monitoring using a metric-absence condition based on sample policy for each collector_id.",
+      "Create a Google SecOps SIEM dashboard to show the ingestion metrics for each log_type and collector_id.",
+      "Create an ingestion notification for health metrics in Cloud Monitoring based on the total ingested log count for each collector_id.",
+      "Create a Looker dashboard that queries the BigQuery ingestion metrics schema for each log_type and collector_id."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 20,
+    "text": "A Google Security Operations (SecOps) detection rule is generating frequent false positive alerts. The rule was designed to detect suspicious\nCloud Storage enumeration by triggering an alert whenever the storage.objects.list API operation is called using the api.operation UDM field.\nHowever, a legitimate backup automation tool that uses the same API, causing the rule to fire unnecessarily. You need to reduce these false\npositives from this trusted backup tool while still detecting potentially malicious usage. How should you modify the rule to improve its accuracy?",
+    "options": [
+      "Add principal.user.email 0/91 != \"backup-bot@foobaa.com\" to the rule condition to exclude the automation account.",
+      "Replace api.operation with api.service_name = \"storage.googleapis.com\" to narrow the detection scope.",
+      "Convert the rule into a multi-event rule that looks for repeated API calls across multiple buckets.",
+      "Adjust the rule severity to LOW to deprioritize alerts from automation tools."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 21,
+    "text": "Your company uses Google Security Operations (SecOps) Enterprise and is ingesting various logs. You need to proactively identify potentially\ncompromised user accounts. Specifically, you need to detect when a user account downloads an unusually large volume of data compared to the\nuser's established baseline activity. You want to detect this anomalous data access behavior using the least amount of effort. What should you\ndo?",
+    "options": [
+      "Inspect Security Command Center (SCC) default findings for data exfiltration in Google SecOps.",
+      "Create a log-based metric in Cloud Monitoring, and configure an alert to trigger if the data downloaded per user exceeds a predefined limit.\nIdentify users who exceed the predefined limit in Google SecOps.",
+      "Develop a custom YARA-L detection rule in Google SecOps that counts download bytes per user per hour and triggers an alert if a threshold\nis exceeded.",
+      "Enable curated detection rules for User and Endpoint Behavioral Analytics (UEBA), and use the Risk Analytics dashboard in Google SecOps\nto identify metrics associated with the anomalous activity."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 22,
+    "text": "Your organization uses Security Command Center (SCC) and relies on Compute Engine instances to run business-critical workloads. SCC has\nflagged a particular instance for exhibiting a high volume of outbound network connections to geographically diverse and unknown IP addresses.\nYou need to determine whether the instance has been compromised by malware. What should you do?",
+    "options": [
+      "Examine the IAM roles assigned to the service account that are associated with the instance. Revoke any permissions that could have\nfacilitated malware installation.",
+      "Review the Google Cloud Service Health dashboard to identify any ongoing Google Cloud platform incidents that could be causing unusual\nnetwork traffic from the instance.",
+      "Disable and re-enable the instances' network interface and determine whether the unusual network behavior is resolved.",
+      "Analyze Event Threat Detection findings. Review the events and the outbound network connections associated with the instance."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 23,
+    "text": "Your company wants to enhance its detection capabilities to prevent insider threat incidents. You need to be alerted when a privileged Google\nGroup is modified to allow access to the general public. You need to identify and enable the optimal log source, and configure the alert. What\nshould you do?",
+    "options": [
+      "Enable Google Drive log events. Create a reporting rule that triggers when a file sharing event occurs with the visibility set to anyone with\nthe link.",
+      "Enable VPC Flow Logs for the default VPC network. Configure a log-based alert in Cloud Logging to detect anomalous traffic patterns\nassociated with Google Groups API endpoints.",
+      "Enable IAM Admin Activity audit logs, and export the logs to Google Security Operations (SecOps). Write a YARA-L rule in Google SecOps to\ncapture any changes to relevant IAM policies.",
+      "Enable data sharing for Google Workspace Admin Audit logs, and ensure that Event Threat Detection is enabled for your organization."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 24,
+    "text": "You are using Google Security Operations (SecOps) to investigate suspicious activity linked to a specific user. You want to identify all assets the\nuser has interacted with over the past seven days to assess potential impact. Your need to understand the user's relationships to endpoints,\nservice accounts, and cloud resources. How should you identify user-to-asset relationships in Google SecOps?",
+    "options": [
+      "Use the Raw Log Scan view to group events by asset ID.",
+      "Query for hostnames in UDM Search and filter the results by user.",
+      "Generate an ingestion report to identify sources where the user appeared in the last seven days.",
+      "Run a retrohunt to find rule matches triggered by the user."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 25,
+    "text": "Your organization recently acquired a Google Security Operations (SecOps) Enterprise Plus license. Your organization is already ingesting Cloud\nAudit Logs, firewall logs, proxy logs and endpoint logs, but there are no threat intelligence feeds being ingested into your Google SecOps\nenvironment. You need to design and deploy a solution that alerts your team quickly if an IOC of an active breach is observed in your environment.\nWhat should you do?",
+    "options": [
+      "Write, enable, and configure alerting on a custom multi-event rule.",
+      "Write, enable, and configure alerting on a custom single-event rule.",
+      "Enable and configure alerting for relevant curated detection rule sets.",
+      "Create and schedule a dashboard to send periodic summaries of the active breach IOCs and their associated events."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 26,
+    "text": "Your company has deployed two on-premises firewalls. You need to configure the firewalls to send logs to Google Security Operations (SecOps)\nusing Syslog. What should you do?",
+    "options": [
+      "Pull the firewall logs by using a Google SecOps feed integration.",
+      "Set the Google SecOps URL instance as the Syslog destination.",
+      "Deploy a third-party agent (e.g Bindplane, NXLog) on your on-premises environment, and set the agent as the Syslog destination.",
+      "Deploy a Google Ops Agent on your on-premises environment, and set the agent as the Syslog destination."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 27,
+    "text": "You are a platform engineer at an organization that is migrating from a third-party SIEM product to Google Security Operations (SecOps). You\npreviously manually exported context data from Active Directory (AD) and imported the data into your previous SIEM as a watchlist when there\nwere changes in AD's user/asset context data. You want to improve this process using Google SecOps. What should you do?",
+    "options": [
+      "Configure a Google SecOps SOAR integration for AD to enrich user/asset information in your security alerts.",
+      "Create a reference list that contains the AD context data. Use the reference list in your YARA-L rule to find user/asset information for each\nsecurity event.",
+      "Create a data table that contains AD context data. Use the data table in your YARA-L rule to find user/asset data that can be correlated\nwithin each security event.",
+      "Ingest AD organizational context data as user/asset context to enrich user/asset information in your security events."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 28,
+    "text": "You manage a large fleet of Compute Engine instances. Security Health Analytics (SHA) has generated a CONFIDENTIAL_COMPUTING_DISABLED\nfinding within Security Command Center (SCC). You need to quickly remediate this finding. What should you do?",
+    "options": [
+      "Delete the offending VM instance, and mute the finding.",
+      "Delete the offending VM instance, and disable the SHA detector.",
+      "Delete the offending VM instance, and manually mark the finding as inactive.",
+      "Delete the offending VM instance, and allow the finding to be automatically marked as inactive."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 29,
+    "text": "Your company's SOC recently responded to a ransomware incident that began with the execution of a malicious document. EDR tools contained\nthe initial infection. However, multiple privileged service accounts continued to exhibit anomalous behavior, including credential dumping and\nscheduled task creation. You need to design an automated playbook in Google Security Operations (SecOps) SOAR to minimize dwell time and\naccelerate containment for future similar attacks. Which action should you take in your Google SecOps SOAR playbook to support containment\nand escalation?",
+    "options": [
+      "Configure a step that revokes OAuth tokens and suspends sessions for high-privilege accounts based on entity risk.",
+      "Add an approval step that requires an analyst to validate the alert before executing a containment action.",
+      "Create an external API call to VirusTotal to submit hashes from forensic artifacts.",
+      "Add a YARA-L rule that sends an alert when a document is executed using a scripting engine such as wscript.exe."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 30,
+    "text": "Your organization uses Google Security Operations (SecOps) for security analysis and investigation. Your organization has decided that all\nsecurity cases related to Data Loss Prevention (DLP) events must be categorized with a defined root cause specific to one of five DLP event types\nwhen the case is closed in Google SecOps. How should you achieve this?",
+    "options": [
+      "Customize the Close Case dialog and add the five DLP event types as root cause options.",
+      "Customize the Case Name format to include the DLP event type.",
+      "Create a Google SecOps SOAR playbook that automatically assigns case tags where each tag contains the unique definition of one of the\nfive DLP event types.",
+      "Create case tags in Google SecOps SOAR where each tag contains a unique definition of each of the five DLP event types, and have\nanalysts assign them to cases manually."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 31,
+    "text": "You are investigating an alert in Google Security Operations (SecOps). You want to view previous enrichment attributes and relevant historical\ncases for an entity using the fewest number of steps. What should you do?",
+    "options": [
+      "Initiate a SIEM Search to query the entity.",
+      "Initiate a SOAR Search to query the entity.",
+      "Select View Details for the entity in the Entity Highlights widget.",
+      "Select the entity identifier in the Entity Highlights widget to open Entity Explorer."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 32,
+    "text": "During a proactive threat hunting exercise, you discover that a critical production project has an external identity with a highly privileged IAM role.\nYou suspect that this is part of a larger intrusion, and it is unknown how long this identity has had access. All logs are enabled and routed to a\ncentralized organization-level Cloud Logging bucket, and historical logs have been exported to BigQuery datasets. You need to determine whether\nany actions were taken by this external identity in your environment. What should you do?",
+    "options": [
+      "Use Policy Analyzer to identity the resources that are accessible by the external identity. Examine the logs related to these resources in the\ncentralized Cloud Logging bucket and the BigQuery dataset.",
+      "Analyze VPC Flow Logs exported to BigQuery, and correlate source IP addresses with potential login events for the external identity.",
+      "Analyze IAM recommender insights and Security Command Center (SCC) findings associated with the external identity.",
+      "Execute queries against the centralized Cloud Logging bucket and the BigQuery dataset to filter for logs for where the principal email\nmatches the external identity."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 33,
+    "text": "You are a security analyst at an organization that uses Google Security Operations (SecOps). You notice suspicious login attempts on several user\naccounts. You need to determine whether these attempts are part of a coordinated attack as quickly as possible. What action should you take\nfirst?",
+    "options": [
+      "Enable default curated detections to automatically block suspicious IP addresses.",
+      "Use UDM Search to query historical logs for recent IOCs associated with the suspicious login attempts.",
+      "Remove user accounts that have repeated invalid login attempts.",
+      "Look for correlations across impacted users in the Risk Analytics dashboard."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "B (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 34,
+    "text": "Your Google Security Operations (SecOps) instance is generating a high volume of alerts related to an IP address that recently appeared in a\nthreat intelligence feed. The IP address is flagged as a known command and control (C2) server by multiple vendors. The IP address appears in\nrepeated DNS queries originating from a sandboxing system and test environment used by your malware analysis team. You want to avoid alert\nfatigue while preserving visibility in the event that the IOC reappears in real production telemetry. What should you do?",
+    "options": [
+      "Temporarily disable the rule to avoid unnecessary alerts until the IOC expires in the threat feed.",
+      "Add the IP address to a Google SecOps reference list, and configure the rule to suppress alerts for that list.",
+      "Reduce the severity score in the rule configuration when the IOC match occurs in any internal IP address range.",
+      "Add an exception in the detection rule to exclude matches originating from specific asset groups."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 35,
+    "text": "You are threat hunting for an advanced threat group known for targeted, novel attacks by deploying campaign-specific infrastructure. You want to\ndevelop detections based on the threat group's behaviors so you can effectively detect whether the threat group has attacked your organization.\nWhat should you do?",
+    "options": [
+      "Identify exposed technologies and products used by your organization, and develop detections to search for signs of exploitation.",
+      "Find intelligence reports in Google Threat Intelligence that relate to the threat actor, identify their behavior in previous campaigns, and use\nthe past behavior to design detections in Google Security Operations (SecOps).",
+      "Search for the threat actor in Google Threat Intelligence, export the IOCs associated with the threat actor into a Google Security Operations\n(SecOps) list, and develop detections that reference this list.",
+      "Search for the threat actor in Google Threat Intelligence, review the threat actor's tactics, techniques, and procedures (TTPs), and design\ndetections based on the TTPs in Google Security Operations (SecOps)."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 36,
+    "text": "You work for a large international company that has several Compute Engine instances running in production. You need to configure monitoring\nand alerting for Compute Engine instances tagged with compliance=pci that have an external IP address assigned. What should you do?",
+    "options": [
+      "Create a custom Event Threat Detection module that alerts when a Compute Engine instance with the compliance=pci tag is assigned an\nexternal IP address.",
+      "Deploy the compute.vmExternalIpAccess organization policy constraint to prevent specific projects or folders with the compliance=pci tag\nfrom creating Compute Engine instances with external IP addresses.",
+      "Create a custom Security Health Analytics (SHA) module. Configure the detection logic to scan Cloud Asset Inventory data for\ncompute.googleapis.com 0/91/Instance assets, and Search for the compliance=pci tag.",
+      "Use the PUBLIC_IP_ADDRESS Security Health Analytics (SHA) detector to identify Compute Engine instances with external IP addresses.\nDetermine whether the compliance=pci tag exists on the instances."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "C (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 37,
+    "text": "Your company's analyst team uses a playbook to make necessary changes to external systems that are integrated with the Google Security\nOperations (SecOps) platform. You need to automate the task to run once every day at a specific time. You want your solution to minimize\nmaintenance overhead. What should you do?",
+    "options": [
+      "Write a custom Google SecOps SOAR job in the IDE using the code from the existing playbook actions.",
+      "Create a Google SecOps SOAR request and a playbook trigger to match the request from the user to start the playbook with the relevant\nactions.",
+      "Create a Cron Scheduled Connector for this use case Configure a playbook trigger to match the cases created by the connector that runs\nthe playbook with the relevant actions.",
+      "Use a VM to host a script that runs a playbook via an API call."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 38,
+    "text": "You have discovered that a server that hosts an internal web application has been accidentally exposed to the internet for 48 hours. Logging is\nenabled on the server. You want to use Google Security Operations (SecOps) to run a UDM search against the server logs to identify whether there\nhave been any successful exploitations against it. What event field search should you use?",
+    "options": [
+      "Perform a search for antimalware or endpoint security events by using the product_event_type UDM field.",
+      "Perform a search for sign-on activity for user accounts that are not expected on the server by using the principal.user.userid UDM field.",
+      "Perform a search for network traffic where the principal is rarely seen by using the principal.ip UDM field.",
+      "Perform a search for process launches and commands that are rarely seen by using the metadata.event_type UDM field."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 39,
+    "text": "You have been tasked with creating a YARA-L detection rule in Google Security Operations (SecOps). The rule should identify when an internal\nhost initiates a network connection to an external IP address that the Applied Threat Intelligence Fusion Feed associates with indicators attributed\nto a specific Advanced Persistent Threat 41 (APT41) threat group. You need to ensure that the external IP address is flagged if it has a\ndocumented relationship to other APT41 indicators within the Fusion Feed. How should you configure this YARA-L rule?",
+    "options": [
+      "Configure the rule to detect outbound network connections to the external IP address. Create a Google SecOps SOAR playbook that queries\nthe Fusion Feed to determine if the IP address has an APT41 relationship.",
+      "Configure the rule to establish a join between the live network connection event and Fusion Feed data for the common external IP address.\nFilter the joined Fusion Feed data for explicit associations with the APT41 threat group or related indicators.",
+      "Configure the rule to check whether the external IP address from the network connection event has a high confidence score across any\nenabled threat intelligence feed.",
+      "Configure the rule to trigger when the external IP address from the network connection event matches an entry in a manually pre-curated\nreference list of all APT41-related IP addresses."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 40,
+    "text": "You are writing a detection rule in Google Security Operations (SecOps) SIEM that sends a risk score to the alert. You have access to Google\nThreat Intelligence (GTI) data through your Google SecOps subscription. You need to ensure that the threat score output in the detection logic\ninforms the alert's risk score and is available for future detections. What should you do?",
+    "options": [
+      "Use the outcomes section of your detection logic to pull UDM enrichment fields from the event data. Apply logic to determine the total risk\noutcome, and store the risk score as the risk_score variable",
+      "Use the match section of your detection logic to filter out irrelevant entities. Store the remaining entities as the risk_score variable.",
+      "Configure a feed in Google SecOps SIEM to ingest GTI data to automatically enrich the appropriate entities.",
+      "Create a Google SecOps SOAR playbook to query GTI that uses the VirusTotal integration to enrich the alert. Modify the risk_score context\nvalue to match."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 41,
+    "text": "You are a SOC manager, and your company recently migrated to Google Security Operations (SecOps). As the team grows, you want to monitor all\naudit logs related to data feeds in Google SecOps. What should you do?",
+    "options": [
+      "Enable Data Access and Admin Activity audit logs in Cloud Logging, and ingest those logs into Google SecOps SIEM.",
+      "Ingest the Google SecOps audit logs into Google SecOps SIEM for monitoring.",
+      "Monitor Google SecOps SOAR user activity logs for administrative activity.",
+      "Configure the Cloud Logging filter to ingest audit logs related to data feeds into Google SecOps for monitoring."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 42,
+    "text": "Your company is taking a more proactive approach to security. You want to generate an alert when a binary hash first appears in your\nenvironment. What should you do?",
+    "options": [
+      "Enable the Applied Threat Intelligence - Curated Prioritization rule set in curated detections.",
+      "Navigate to the Alerts & IOCs page in Google Security Operations (SecOps). Create a filter that targets hashes and specifies a\nfirst_seen_time value excluding the current date.",
+      "Write a rule to examine file-related events that join with derived context for hashes in the entity graph. Compare the timestamp of the hash\nwith the first_seen_time field.",
+      "Create a table by using the Google Security Operations (SecOps) statistics in search to examine file-related events for the current day.\nVerify that the first_seen_time value predates the current day."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 43,
+    "text": "You are a SOC manager guiding an implementation of your existing incident response plan (IRP) into Google Security Operations (SecOps). You\nneed to capture time duration data for each of the case stages. You want your solution to minimize maintenance overhead. What should you do?",
+    "options": [
+      "Configure a detection rule in SIEM Rules & Detections to include logic to capture the event fields for each case with the relevant stage\nmetrics.",
+      "Write a job in the IDE that runs frequently to check the progress of each case and updates the notes with timestamps to reflect when these\nchanges were identified.",
+      "Configure Case Stages in the Google SecOps SOAR settings, and use the Change Case Stage action in your playbooks that captures time\nmetrics when the stage changes.",
+      "Create a Google SecOps SOAR dashboard that displays specific actions that have been run, identifies which stage a case is in, and\ncalculates the time elapsed since the start of the case."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 44,
+    "text": "Your organization recently implemented Google Security Operations (SecOps) with Applied Threat Intelligence enabled. You were notified by the\nnetworking team about potentially anomalous communications to external domains in the last 30 days. You plan to start your threat hunting by\nlooking at communications to external domains. You are ingesting the following logs into Google SecOps:\nFirewall logs -\nProxy logs -\nDNS logs -\nDHCP logs -\nWhat should you do? (Choose two.)",
+    "options": [
+      "Perform a UDM search across the logs for domains with geolocations that were first seen in the last 30 days.",
+      "Perform a UDM search across the logs for domains with low prevalence that were first seen in the last 30 days.",
+      "Perform a raw log search across the logs for domains with low prevalence that were first seen in the last 30 days.",
+      "Identify the domains with the higher normalized risk in Risk Analytics. Drill down into those entities to determine their prevalence and if they\nwere first seen in the last 30 days.",
+      "Navigate to the IOC Matches page and filter based on domain type over the last 30 days. Look for the first seen and last seen timestamps\nfor the reported domains. Investigate these domains using the IOC drilldown link."
+    ],
+    "answer": [
+      "B",
+      "E"
+    ],
+    "community_vote": "BE (75%) BD (25%)",
+    "is_multiple_choice": true
+  },
+  {
+    "number": 45,
+    "text": "Your company recently started pulling JSON logs from a third-party system into Google Security Operations (SecOps). You noticed that some\nfields are missing, and you want to parse them into UDM fields as quickly as possible. What should you do?",
+    "options": [
+      "Configure auto extraction to add the additional fields.",
+      "Create parser extensions using the no-code approach.",
+      "Create parser extensions using the code snippet approach.",
+      "Submit a parser improvement request to Cloud Customer Care."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 46,
+    "text": "You are a security engineer at a managed security service provider (MSSP) that is onboarding to Google Security Operations (SecOps). You need\nto ensure that cases for each customer are logically separated. How should you configure this logical separation?",
+    "options": [
+      "In Google SecOps SOAR settings, create a new environment for each customer.",
+      "In Google SecOps SOAR settings, create a role for each customer.",
+      "In Google SecOps SOAR settings, create a permissions group for each customer.",
+      "In Google SecOps Playbooks, create a playbook for each customer."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 47,
+    "text": "Your organization recently conducted a penetration test on their environment. You have been tasked with identifying a successful attack chain.\nThe required log sources have been ingested into Google Security Operations (SecOps). You discover anomalous outbound traffic to external\ndomains. You suspect that the finding is a communication to a command and control (C2) infrastructure. You need to identify the least common\nnetwork communications over the last 14 days. What should you do?",
+    "options": [
+      "Perform a Google SecOps SIEM UDM search that looks for NETWORK_CONNECTION or NETWORK_HTTP events with low rolling prevalence\nfor target domains over the last 14 days.",
+      "Perform a Google SecOps SIEM UDM search that looks for NETWORK_CONNECTION or NETWORK_HTTP events with low rolling prevalence\nfor principal domains over the last 14 days.",
+      "Perform a Google SecOps SOAR search that looks for cases with low rolling prevalence of NETWORK_CONNECTION or NETWORK_HTTP\nevents over the last 14 days.",
+      "Perform a Google SecOps SIEM raw log search that looks for low rolling prevalence domains with NETWORK_CONNECTION or\nNETWORK_HTTP in the firewall and proxy logs over the last 14 days."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 48,
+    "text": "Your organization is conducting a penetration test. The CISO has asked you to implement a real-time method to track cases that originate from the\npenetration test, and clearly differentiate these cases from other security incidents. You need to recommend the most effective and efficient\napproach to achieve this goal in Google Security Operations (SecOps). What should you do?",
+    "options": [
+      "Implement case tagging within Google SecOps and apply a unique tag (e.g., PenTest) to all cases related to the penetration test entities.\nUse this tag for filtering and monitoring.",
+      "Create a dashboard that is connected to the Google SecOps data lake. Use pre-built templates to visualize case status based on the\npenetration testing IP address range.",
+      "Create a custom Google SecOps SOAR playbook that automatically extracts case metadata, including key findings and risk scores, and\nsends an email summary to the CISO.",
+      "Configure a custom alert rule that triggers a high-severity alert for all activity originating from the penetration testing team's source IP\naddresses and sends a notification for potential critical vulnerabilities. Verify that these alerts are immediately visible in the alert queue."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 49,
+    "text": "You are tasked with building a workflow in Google Security Operations (SecOps) SOAR. The documentation you are using requires a logical split\nthat has eight different possible paths. You need to break the workflow into eight separate workflows using an automatic and efficient approach.\nWhat should you do?",
+    "options": [
+      "Create eight playbooks for each workflow. Configure the triggered playbook to end on an instruction action that tells the analyst to pick a\nworkflow from the playbooks tab and attach that workflow to the alert.",
+      "Create eight playbooks for each workflow. Create a job that identifies your recently opened cases, applies the needed logic to determine\nwhich of the eight workflows should be attached, and attaches that workflow to the alert.",
+      "Create a playbook that uses a flow condition. Add four more branches to have a total of five branches and an \"Else\" branch. On the \"Else\"\nbranch, include another flow condition. Include the remaining three branches with the logic required.",
+      "Create a playbook that uses a Multi-Choice Question flow and a second Multi-Choice Question for the additional answer choices. Add\ninstructions describing which logic to use in the instruction or question fields. Have the analyst select the appropriate answer to move the\nflow into the right branch."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "B (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 50,
+    "text": "You are a member of the incident response team working in a global enterprise. You need to identify all potential Google Threat Intelligence IOCs\nwithin your organization's data using Google Security Operations (SecOps). What should you do?",
+    "options": [
+      "Use the Cases page in Google SecOps.",
+      "Create YARA-L rules to detect and alert when Google Threat Intelligence identifies potential threats.",
+      "Use Gemini to perform a search for potential cybersecurity threats against your organization's data.",
+      "Use the Alerts & IOCs page in Google SecOps."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 51,
+    "text": "You are a security operations engineer in an enterprise that uses Google Security Operations (SecOps). Your organization recently faced a\ncybersecurity breach. You need to increase the threat analytics as quickly as possible. What should you do?",
+    "options": [
+      "Enable curated detections to identify threats.",
+      "Design YARA-L detection rules based on Google SecOps Marketplace use cases.",
+      "Develop YARA-L detection rules that focus on threat intelligence.",
+      "Ingest data from a threat intelligence platform (TIP) into Google SecOps."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 52,
+    "text": "You are investigating whether an advanced persistent threat (APT) actor has operated in your organization's environment undetected. You have\nreceived threat intelligence that includes:\nA SHA256 hash for a malicious DLL\nA known command and control (C2) domain\nA behavior pattern where rundll32.exe spawns powershell.exe with obfuscated arguments\nYour Google Security Operations (SecOps) instance includes logs from EDR, DNS, and Windows Sysmon. However, you have recently discovered\nthat process hashes are not reliably captured across all endpoints due to an inconsistent Sysmon configuration. You need to use Google SecOps\nto develop a detection mechanism that identifies the associated activities. What should you do?",
+    "options": [
+      "Write a multi-event YARA-L detection rule that correlates the process relationship and hash, and run a retrohunt based on this rule.",
+      "Build a reference list that contains the hash and domain, and link the list to a high-frequency rule for near real-time alerting.",
+      "Create a single-event YARA-L detection rule based on the file hash, and run the rule against historical and incoming telemetry to detect the\nDLL execution.",
+      "Use Google SecOps search to identify recent uses of rundll32.exe, and tag affected assets for watchlisting."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 53,
+    "text": "You are a SOC manager at an organization that recently implemented Google Security Operations (SecOps). You need to monitor your\norganization's data ingestion health in Google SecOps. Data is ingested with Bindplane collection agents. You want to configure the following:\nReceive a notification when data sources go silent within 15 minutes.\nVisualize ingestion throughput and parsing errors.\nWhat should you do?",
+    "options": [
+      "Configure notifications in Cloud Monitoring when ingestion sources become silent in Bindplane. Monitor and visualize Google SecOps data\ningestion metrics using Bindplane Observability Pipeline (OP).",
+      "Configure silent source notifications for Google SecOps collection agents in Cloud Monitoring. Create a Cloud Monitoring dashboard to\nvisualize data ingestion metrics.",
+      "Configure silent source alerts based on rule detections for anomalous data ingestion activity in Risk Analytics. Monitor and visualize the\nalert metrics in the Risk Analytics dashboard.",
+      "Configure automated scheduled delivery of an ingestion health report in the Data Ingestion and Health dashboard. Monitor and visualize\ndata ingestion metrics in this dashboard."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 54,
+    "text": "Your organization has recently onboarded to Google Cloud with Security Command Center Enterprise (SCCE) and is now integrating it with your\norganization's SOC. You want to automate the response process and integrate with the existing SOW ticketing system. How should you implement\nthis functionality?",
+    "options": [
+      "Evaluate each event within the SCC console. Create a ticket for each finding in the ticketing system, and include the remediation steps.",
+      "Use the SCC notifications feed to send alerts to Pub/Sub. Ingest these feeds using the relevant SIEM connector.",
+      "Configure the SCC notifications feed to use Pub/Sub for alerts. Create a Cloud Run function to trigger when an event arrives in the topic and\ngenerate a ticket by calling the API endpoint in the SOC ticketing system.",
+      "Disable the generic posture finding playbook in Google Security Operations (SecOps) SOAR and enable the playbook for the ticketing\nsystem. Add a step in your Google SecOps SOAR playbook to generate a ticket based on the event type."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 55,
+    "text": "You are creating a playbook for the SOC. The SOC requires that each Google Security Operations (SecOps) role sees different information for the\nalert that the playbook runs on. You need to ensure that the playbook presents the relevant information for each Google SecOps role. What should\nyou do?",
+    "options": [
+      "Add a view to the playbook for each Google SecOps role.",
+      "Add the Case Comment action to the playbook for each Google SecOps role.",
+      "Add the Create Siemplify Task action to the playbook to assign a task to each Google SecOps role.",
+      "Add the Add General insight action to the playbook for each Google SecOps role."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "A (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 56,
+    "text": "You are responsible for evaluating the level of effort required to integrate a new third-party endpoint detection tool with Google Security\nOperations (SecOps). Your organization's leadership wants to minimize customization for the new tool for faster deployment. You need to verify\nthat the Google SecOps SOAR and SIEM support the expected workflows for the new third-party tool. You must recommend a tool to your\nleadership team as quickly as possible. What should you do? (Choose two.)",
+    "options": [
+      "Develop a custom integration that uses Python scripts and Cloud Run functions to forward logs and orchestrate actions between the third-\nparty tool and Google SecOps.",
+      "Configure a Pub/Sub topic to ingest raw logs from the third-party tool and build custom YARA-L rules in Google SecOps to extract relevant\nsecurity events.",
+      "Review the architecture of the tool to identify the cloud provider that hosts the tool.",
+      "Review' the documentation to identify if default parsers exist for the tool, and determine whether the logs are supported and able to be\ningested.",
+      "Identify the tool in the Google SecOps Marketplace and verify support for the necessary actions in the workflow."
+    ],
+    "answer": [
+      "D",
+      "E"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": true
+  },
+  {
+    "number": 57,
+    "text": "You are the SOC manager at a large enterprise that uses Google Security Operations (SecOps). You need to create a report that shows the Return\non Investment (ROI) attributed to analyst activities in Google SecOps SOAR for the previous month. The report should include the time saved and\nefficiency gains from using SOAR's features. You need to generate this report using the most efficient and accurate approach while providing the\nrequired level of detail. What should you do?",
+    "options": [
+      "Create a custom Google SecOps SOAR search query that filters for all cases handled by specific analysts in the last month. Export the\nresults to a spreadsheet for analysis and ROI calculation.",
+      "Use the ROI - Analysts Benchmark report in SOAR Reports. Configure the report to display data for the desired time period, and filter by\nindividual analysts.",
+      "Use the filters and visualizations in the Management - SOC Status report in SOAR Reports to extract case-specific performance data.",
+      "Develop a Google SecOps SOAR playbook that automatically aggregates analyst performance metrics, incorporates custom weighted\nfactors for different case types, calculates ROI based on predefined formulas, and generates a PDF report on a monthly schedule."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 58,
+    "text": "Your company works with an external Managed Service Provider (MSP) that requires its users to have the ability to list findings from Security\nCommand Center (SCC) using the Google Cloud SDK. You need to configure the required access for the managed service provider while\nminimizing your involvement in their external user lifecycle management processes. What should you do?",
+    "options": [
+      "Create a user account in your Cloud Identity instance using a subdomain indicating they are external to your organization. Grant this user\naccount the appropriate IAM role at the organization level.",
+      "Create a service account in a SCC project. Grant the MSP user permission to impersonate this account. Grant this service account the\nappropriate IAM role at the organization level.",
+      "Create a workload identity pool in a SCC project. Grant the MSP user the permission to impersonate a service account from this pool, and\ngrant the service account the appropriate IAM role at the organization level.",
+      "Create a workforce identity pool and federate with the identity provider (IdP) of the managed service provider. Grant users of the MSP the\nappropriate IAM role at the organization level."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 59,
+    "text": "You are conducting a proactive threat hunt in Google Security Operations (SecOps). You observe multiple login events with the same\nprincipal.user.userid field that originate from different countries within a short time window. You need to validate whether the account has been\ncompromised. What should you do?",
+    "options": [
+      "Use the entity graph to correlate the user's risk score with linked assets, and review any active alerts.",
+      "Perform a YARA-L 2.0 search for login events and their associated principal.location.country 0/91 field. Use an outcome field to\naggregate the number of failed logins.",
+      "Perform a UDM search for login events, and pivot to group results by user and country of origin.",
+      "Run a YARA-L retrohunt rule that detects users who are logging in from multiple regions using multiple entity contexts."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "A (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 60,
+    "text": "You are using a Google-managed image on a Compute Engine instance in Google Cloud to run an application. You need to ingest the application's\nlog output into Google Security Operations (SecOps). The log output is standard and has a valid label and parser in Google SecOps. Your solution\nmust minimize the cost and time required to move this data into Google SecOps. What should you do?",
+    "options": [
+      "Use the Ops Agent embedded in the Compute Engine image to pull the logs into Cloud Logging. Use the direct ingestion mechanism to\ningest the logs from Google Cloud into Google SecOps.",
+      "Deploy a Bindplane agent on the image to collect and send the logs to Google SecOps.",
+      "Create a script on the workload that reads the logs and uses the Google SecOps Ingestion API to push them to Google SecOps.",
+      "Use the Ops Agent embedded in the Compute Engine image to pull the logs into a Cloud Storage bucket. Create a feed in Google SecOps to\ningest the logs."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 61,
+    "text": "You are a security analyst at a company that uses Google Security Operations (SecOps) Enterprise. Security Command Center Enterprise (SCCE),\nand Google Threat Intelligence (GTI). You need to leverage threat intelligence to improve threat hunting capabilities to proactively identify novel\nand emerging attack patterns targeting your Google Cloud environment in near real-time. What should you do?",
+    "options": [
+      "Use the built-in threat intelligence of Event Threat Detection in SCCE to detect relevant threats.",
+      "Configure an Applied Threat Intelligence Fusion Feed in Google SecOps, and develop YARA-L detection rules to search ingested Google\nCloud telemetry for patterns matching this intelligence.",
+      "Route all Google Cloud logs to a dedicated BigQuery dataset, and use scheduled queries with curated open-source threat intelligence feeds.",
+      "Configure Google Cloud Armor security policies with preconfigured web application firewall (WAF) rule sets, and enable Adaptive Protection\nto use GTI."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 62,
+    "text": "You are developing a playbook to respond to phishing reports from users at your company. You configured a UDM query action to identify all users\nwho have connected to a malicious domain. You need to extract the users from the UDM query and add them as entities in an alert so the\nplaybook can reset the password for those users. You want to minimize the amount of effort required by the SOC analyst. What should you do?",
+    "options": [
+      "Use the Create Entity action from the Siemplify integration. Use the Expression Builder to create a placeholder with the usernames in the\nEntities Identifier parameter.",
+      "Create a case for each identified user with the user designated as the entity.",
+      "Implement an Instruction action from the Flow integration that instructs the analyst to add the entities in the Google SecOps user interface.",
+      "Configure a manual Create Entity action from the Siemplify integration that instructs the analyst to input the Entities Identifier parameter\nbased on the results of the action."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 63,
+    "text": "You are a security engineer at a financial technology company. You need to create a centralized dashboard to provide security posture visibility for\nyour leadership team. The dashboard must meet these requirements:\nProvide insights from Security Command Center (SCC) findings and security-related events captured in Cloud Logging.\nSupport large volumes of historical data.\nBe able to join SCC findings and audit logs.\nYou want to use the most effective visualization solution that uses Google Cloud managed services. What should you do?",
+    "options": [
+      "Ingest the SCC findings and Cloud Audit Logs into a Cloud Storage bucket. Write a Python script that reads the data and uses Matplotlib to\ncreate the visualizations.",
+      "Create custom metrics in Cloud Monitoring based on the SCC findings, and configure log-based metrics for security-related events. Build\nCloud Monitoring dashboards to visualize these custom and log-based metrics.",
+      "Export SCC findings and Cloud Audit Logs to BigQuery. Connect Looker Studio to the BigQuery datasets, and create the visualizations and\nfilters.",
+      "Use the built-in SCC dashboard to visualize the SCC finding, and extract log counts for specific log events from Cloud Audit Logs."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 64,
+    "text": "Your organization has mission-critical production Compute Engine VMS that you monitor daily. While performing a UDM search in Google Security\nOperations (SecOps), you discover several outbound network connections from one of the production VMs to an unfamiliar external IP address\noccurring over the last 48 hours. You need to use Google SecOps to quickly gather more context and assess the reputation of the external IP\naddress. What should you do?",
+    "options": [
+      "Examine the Google SecOps Asset view details for the production VM.",
+      "Create a new detection rule to alert on future traffic from the external IP address.",
+      "Search for the external IP address in the Alerts & IOCs page in Google SecOps.",
+      "Perform a UDM search to identify the specific user account that was logged into the production VM when the connections occurred."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 65,
+    "text": "You are responsible for identifying suspicious activity and security events in your organization's environment. You discover that some detection\nrules are being triggered for internal IP addresses in the 192.0.2.0 0/91/8 subnet that are causing false positive alerts. You want to improve\nthese detection rules. What should you add to the YARA-L detection rules?",
+    "options": [
+      "net.ip_in_range_cidr(all Se.principal.ip, \"192.0.2.0/8\")",
+      "net.ip_in_range_cidr(any Se.principal.ip, \"192.0.2.0/8\")",
+      "not net.ip_in_range_cidr(all Se.principal.ip, \"192.0.2.0/8\")",
+      "not net.ip_in_range_cidr(any Se.principal.ip, \"192.0.2.0/8\")"
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 66,
+    "text": "Your team has onboarded a new log source from a third-party DNS filtering solution. After ingestion, you observe that key UDM fields such as\nnetwork.dns.questions.name 0/91 and metadata.product_event_type are missing from the parsed events in Google Security Operations\n(SecOps). You suspect that the default parser does not fully align with the source format. You need to ensure these fields are available for\ndownstream detection rules that rely on DNS query telemetry and event categorization. What should you do?",
+    "options": [
+      "Modify the ingestion source definition to remap raw fields directly to UDM by using the UDM sample output.",
+      "Enable asset enrichment for the log source to infer missing fields based on correlated host activity.",
+      "Use a custom parser that outputs all fields as raw JSON for detection.",
+      "Create a parser extension that maps the missing source fields to the correct UDM fields and attach it to the existing parser."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 67,
+    "text": "You are ingesting and parsing logs from an SSO provider and an on-premises appliance using Google Security Operations (SecOps). Users are\ntagged as \"restricted” by an internal process. Restrictions last five days from the most recent flagging time. You need to create a rule to detect\nwhen restricted users log into the appliance. Your solution must be quickly implemented and easily maintained. What should you do?",
+    "options": [
+      "Use a Google SecOps SOAR global context value to store a list of flagged users with their corresponding time to live values. Use a SOAR job\nto dynamically build and deploy a new version of the detection rule with the updated list of flagged users.",
+      "Store the identifiers of the flagged users in the detection rule logic. Actively monitor for newly flagged users, and add them to the detection\nrule logic.",
+      "Ingest the user flags as custom enrichment data using a feed. Use a multi-event detection rule to find logins from users flagged in the\nentity graph.",
+      "Store the flagged users in a data table column with their corresponding time to live values in a second column. Use row-based comparisons\nin your detection rule."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 68,
+    "text": "You are receiving security alerts from multiple connectors in your Google Security Operations (SecOps) instance. You need to identify which IP\naddress entities are internal to your network and label each entity with its specific network name. This network name will be used as the trigger\nfor the playbook. What should you do?",
+    "options": [
+      "Configure each network in the Google SecOps SOAR settings.",
+      "Enrich the IP address entities as the initial step of the playbook.",
+      "Modify the entity attribute in the alert overview.",
+      "Create an outcome variable in the rule to assign the network name."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "A (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 69,
+    "text": "You have identified a common malware variant on a potentially infected computer. You need to find reliable IOCs and malware behaviors as\nquickly as possible to confirm whether the computer is infected and search for signs of infection on other computers. What should you do?",
+    "options": [
+      "Create a Compute Engine VM, and perform dynamic and static malware analysis.",
+      "Perform a UDM search for the file checksum in Google Security Operations (SecOps). Review activities that are associated with, or\nattributed to the malware.",
+      "Run a Google Web Search for the malware hash, and review the results.",
+      "Search for the malware hash in Google Threat Intelligence, and review the results."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 70,
+    "text": "Your Google Security Operations (SecOps) SOAR integration with Security Command Center (SCC) uses a service account that currently has read\naccess to the findings at the organization level. Google SecOps SOAR successfully reads SCC finding data, but actions attempting to update the\nfinding states consistently fail with a permission denied error. You need to resolve this error while following the principle of least privilege. What\nshould you do?",
+    "options": [
+      "Grant the service account the roles/securitycenter.findingsBulkMuteEditor IAM role at the organization level.",
+      "Grant the service account the roles/securitycenter.findingsEditor IAM role at the organization level.",
+      "Grant the service account the roles/iam.serviceAccountUser IAM role to itself.",
+      "Regenerate the service account key, and update the credentials in Google SecOps SOAR."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 71,
+    "text": "You need to augment your organization's existing Security Command Center (SCC) implementation with additional detectors. You have a list of\nknown IOCs and would like to include external signals for this capability to ensure broad detection coverage. What should you do?",
+    "options": [
+      "Create an Event Threat Detection custom module using the \"Configurable Bad IP\" template.",
+      "Create a Security Health Analytics (SHA) custom module using the compute address resource.",
+      "Create a custom posture for your organization that combines the prebuilt Event Threat Detection and Security Health Analytics (SHA)\ndetectors.",
+      "Create a custom log sink with internal and external IP addresses from threat intelligence. Use the SCC API to generate a finding for each\nevent."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 72,
+    "text": "Your organization recently implemented Google Security Operations (SecOps). You need to create a solution that allows the security team to\nmonitor data ingestion into Google SecOps in real time. You also need to configure a solution that automatically sends a notification if one of the\ndata sources stops ingesting data. You need to minimize the cost of these configurations. What should you do?",
+    "options": [
+      "Create Looker dashboards to visualize the data ingestion, and configure an alerting policy in Looker to send a notification in case of failure.",
+      "Create Looker dashboards to visualize the data ingestion, and configure an alerting policy in Cloud Monitoring to send a notification in case\nof failure.",
+      "Use Google SecOps SIEM dashboards to visualize the data ingestion and configure an alerting policy in Cloud Logging to send a notification\nin case of failure.",
+      "Use Google SecOps SIEM dashboards to visualize the data ingestion, and configure an alerting policy in Cloud Monitoring to send a\nnotification in case of failure."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 73,
+    "text": "Your company's Google Security Operations (SecOps) instance has three roles: Tier 1, Tier 2, and Tier 3. Currently, analysts in all tiers can access\nall cases in Google SecOps. Your company's SOC has a new requirement to restrict access to cases assigned to the Tier 3 role from the other\ntiers. You need to ensure cases that are assigned to the Tier 3 role can only be accessed by Tier 3 analysts. What should you do?",
+    "options": [
+      "Instruct analysts in Tier 1 and Tier 2 to create a case queue filter to exclude cases assigned to the Tier 3 role.",
+      "Revoke additional role access from Tier 1 and Tier 2 analysts.",
+      "Configure the Cross Environment Policy to allow users to move cases between environments. Move Tier 3 cases to an environment that\nonly Tier 3 analysts can access.",
+      "Assign the cases to a user in the Tier 3 role."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 74,
+    "text": "You are the lead engineer on your organization's incident response team. You are running CrowdStrike Falcon and SentinelOne to protect the\nWindows devices in different regions of your organization. You are ingesting the following logs into Google Security Operations (SecOps):\nAzure AD Directory Audit (AZURE_AD_AUDIT)\nCrowdstrike Falcon (CS_EDR)\nMicrosoft Sysmon (WINDOWS_SYSMON)\nSentinelOne (SENTINEL_EDR)\nWindows Event (WINEVTLOG)\nYou notice that a high volume of ransomware incidents are impacting your team's SLAs. You need to automate the response to ransomware on\nWindows devices. How should you automate the detection and containment of ransomware incidents? (Choose two.)",
+    "options": [
+      "Enable the Windows Threats category in curated detections to detect the latest Windows threats.",
+      "Enable the Risk Analytics for User and Endpoint Behavioral Analytics (UEBA) category in curated detections to detect peer group-based\nanomalous behavior and suspicious actions.",
+      "Install SOAR EDR integrations for endpoint containment actions. Create a playbook to contain impacted Windows devices based on curated\ndetections.",
+      "Install SOAR EDR jobs to execute remote endpoint containment actions. Create a playbook to contain impacted Windows devices based on\ncurated detections.",
+      "Install a SOAR remote agent on each Windows device for endpoint containment actions. Create a playbook to contain impacted Windows\ndevices based on curated detections."
+    ],
+    "answer": [
+      "A",
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": true
+  },
+  {
+    "number": 75,
+    "text": "You need to ingest audit logs from your organization's entire Google Cloud environment into Google Security Operations (SecOps). This process\nmust include Cloud NAT logs for workloads within a designated folder. You need to configure this ingestion while minimizing integration\ncomplexity. You have already enabled Google Cloud data ingestion into Google SecOps. What should you do next?",
+    "options": [
+      "Create a custom filter to export the folder-level Cloud NAT logs.",
+      "Create a custom filter to export the project-level Cloud NAT logs for each project in the environment folder.",
+      "Configure an aggregated log sink at the folder level, and route the Cloud NAT logs to Pub/Sub. Enable the Pub/Sub connector for Google\nSecOps.",
+      "Configure an aggregated log sink at the organization level, and route the Cloud NAT logs to a Cloud Storage bucket. Configure the Cloud\nStorage connector for Google SecOps."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 76,
+    "text": "You work for an organization that operates an ecommerce platform. You have identified a remote shell on your company's web host. The existing\nincident response playbook is outdated and lacks specific procedures for handling this attack. You want to create a new, functional playbook that\ncan be deployed as soon as possible by junior analysts. You plan to use available tools in Google Security Operations (SecOps) to streamline the\nplaybook creation process. What should you do?",
+    "options": [
+      "Add instruction actions to the existing incident response playbook that include updated procedures with steps that should be completed.\nHave a senior analyst build out the playbook to include those new procedures.",
+      "Use the playbook creation feature in Gemini, and enter details about the intended objectives. Add the necessary customizations for your\nenvironment, and test the generated playbook against a simulated remote shell alert.",
+      "Use Gemini to generate a playbook based on a template from a standard incident response plan and implement automated scripts to filter\nnetwork traffic based on known malicious IP addresses.",
+      "Create a new custom playbook based on industry best practices, and work with an offensive security team to test the playbook against a\nsimulated remote shell alert."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 77,
+    "text": "You recently joined a company that uses Google Security Operations (SecOps) with Applied Threat Intelligence enabled. You have alert fatigue\nfrom a recent red team exercise, and you want to reduce the amount of time spent sifting through noise. You need to filter out IOCs that you\nsuspect were generated due to the exercise. What should you do?",
+    "options": [
+      "Ask Gemini to provide a list of IOCs from the red team exercise.",
+      "Filter IOCs with an ingestion time that matches the time period of the red team exercise.",
+      "Navigate to the IOC Matches page. Identify and mute the IOCs from the red team exercise.",
+      "Navigate to the IOC Matches page. Review IOCs with an Indicator Confidence Score (IC-Score) label >= 80%."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 78,
+    "text": "You are managing the integration of Security Command Center (SCC) with downstream tooling. You need to pull security findings from SCC and\nimport those findings as part of Google Security Operations (SecOps) SOAR actions. You need to configure the connection between SCC and\nGoogle SecOps. What should you do?",
+    "options": [
+      "Install the Google Rapid Response integration from the Google SecOps Marketplace. Gather information about the findings from the\nappropriate server.",
+      "Install the SCC integration from the Google SecOps Marketplace. Grant the SCC API the appropriate IAM roles to integrate with the Google\nSecOps instance. Configure this integration using a generated API key scoped to the SCC API.",
+      "Create a Pub/Sub topic with a NotificationConfig object and a push subscription for the desired finding types. Grant the Google SecOps\nservice account the appropriate IAM roles to read from this subscription.",
+      "Create a Pub/Sub topic with a NotificationConfig object and a push subscription for the desired finding types. Create a new Google SecOps\nservice account in the Google Cloud project, and grant this service account the appropriate IAM roles to read from this subscription. Export\nthe credentials from IAM and import the credentials into Google SecOps SOAR."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 79,
+    "text": "You are configuring a new integration in Google Security Operations (SecOps) to perform enrichment actions in playbooks. This enrichment\ntechnology is located in a private data center that does not allow inbound network connections. You need to connect your Google SecOps\ninstance to the integration. What should you do?",
+    "options": [
+      "Create a forwarder in the private data center. Configure an instance of the integration to run on the forwarder.",
+      "Query the enrichment source in the private data center and upload the results to the case wall in Google SecOps.",
+      "Create a network route in Google Cloud to the private data center.",
+      "Create a remote agent in the private data center. Configure an instance of the integration to run on a remote agent in Google SecOps."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 80,
+    "text": "You use Google Security Operations (SecOps) curated detections and YARA-L rules to detect suspicious activity on Windows endpoints. Your\nsource telemetry uses EDR and Windows Events logs. Your rules match on the principal.user.userid UDM field. You need to ingest an additional log\nsource for this field to match all possible log entries from your EDR and Windows Event logs. What should you do?",
+    "options": [
+      "Ingest logs from Windows Sysmon.",
+      "Ingest logs from Microsoft Entra ID.",
+      "Ingest logs from Windows PowerShell.",
+      "Ingest logs from Windows Procmon."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "B (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 81,
+    "text": "You are an incident response engineer at an organization that uses Google Security Operations (SecOps). You recently started monitoring IOCs in\nApplied Threat Intelligence using YARA-L rules. You have discovered that there are more false positive alerts than expected, which is causing\nnoise for the SOC team. You need to reduce the number of false positive alerts. What should you do?",
+    "options": [
+      "Modify the YARA-L rules to use an indicator confidence score (IC-Score) of 60% and above.",
+      "Configure alert grouping for the most repetitive alerts.",
+      "Implement curated detections instead of custom YARA-L rules.",
+      "Create a playbook that automatically tunes the IOC source if its indicator confidence score (IC-Score) is between 60% and 80%."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 82,
+    "text": "You scheduled a Google Security Operations (SecOps) report to export results to a BigQuery dataset in your Google Cloud project. The report\nexecutes successfully in Google SecOps, but no data appears in the dataset. You confirmed that the dataset exists. How should you address this\nexport failure?",
+    "options": [
+      "Grant the Google SecOps service account the roles/iam.serviceAccountUser IAM role to itself.",
+      "Set a retention period for the BigQuery export.",
+      "Grant the user account that scheduled the report the roles/bigquery.dataEditor IAM role on the project.",
+      "Grant the Google SecOps service account the roles/bigquery.dataEditor IAM role on the dataset."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 83,
+    "text": "Your organization's Google Security Operations (SecOps) tenant is ingesting a vendor's firewall logs in its default JSON format using the Google-\nprovided parser for that log. The vendor recently released a patch that introduces a new field and renames an existing field in the logs. The parser\ndoes not recognize these two fields and they remain available only in the raw logs, while the rest of the log is parsed normally. You need to resolve\nthis logging issue as soon as possible while minimizing the overall change management impact. What should you do?",
+    "options": [
+      "Write a code snippet, and deploy it in a parser extension to map both fields to UDM.",
+      "Use the web interface-based custom parser feature in Google SecOps to copy the parser, and modify it to map both fields to UDM.",
+      "Deploy a third-party data pipeline management tool to ingest the logs, and transform the updated fields into fields supported by the default\nparser.",
+      "Use the Extract Additional Fields tool in Google SecOps to convert the raw log entries to additional fields."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "A (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 84,
+    "text": "Your company uses Cloud Identity to manage employee identities and has Google Security Operations (SecOps) linked to your Google Cloud\nproject. You have assigned the roles/chronicle.viewer IAM role at the project level to a specific Google Group that contains users with external\nGoogle accounts. Users in this external group authenticate successfully to Google Cloud, but are unable to access Google SecOps. Internal users\ngranted the same role can access Google SecOps. What Google Cloud configuration is most likely preventing the external users from accessing\nGoogle SecOps?",
+    "options": [
+      "External users must be synchronized to Cloud Identity using Google Cloud Directory Sync (GCDS) for IAM roles to take effect.",
+      "Google SecOps inherently blocks sign-ins from identities outside the organization's primary domain.",
+      "The constraints/iam.allowedPolicyMemberDomains organization policy is restricting IAM role assignments to identities within your\ncompany domain only.",
+      "The roles/chronicle.viewer IAM role does not apply correctly when granted to Google Groups containing external identities."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 85,
+    "text": "Your company's SOC analysts frequently submit manual change requests to a system administrator to make changes to the firewall rules on a\nspecific router. You have the integration for the firewall installed and configured with credentials. You want to use the integration to trigger firewall\nrule changes directly from the Google Security Operations (SecOps) SOAR. Your system administrator requires the ability to manually approve the\nrequested changes prior to deployment. How should you implement the workflow for analysts to trigger on demand?",
+    "options": [
+      "Create an email template for the analyst to get approval for the change from the system administrator. Have the analyst fill out the needed\nfields, and send the email for approval. Once approved, use a manual action to make the change to the firewall rule from any open case.",
+      "Create an account for the system administrator in your Google SecOps instance to allow the system administrator to make the changes\nfrom Google SecOps directly. Add an escalation step to enable the analyst to assign the case to the system administrator.",
+      "Create a playbook where the firewall rule change is a manual step, allowing the analyst to edit the firewall rule as a pending action. Have\nthe analyst email the system administrator with the change. Once approved, the analyst lets the playbook continue.",
+      "Create a request in the Google SecOps SOAR settings that includes a field for the firewall rule. Create a playbook that is triggered by this\nrequest. Configure the playbook step that makes the firewall rule change to send an approval request from the system administrator. The\napproval request must include the parameter being changed."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 86,
+    "text": "You are conducting proactive threat hunting in your company's Google Cloud environment. You suspect that an attacker compromised a\ndeveloper's credentials and is attempting to move laterally from a development Google Kubernetes Engine (GKE) cluster to critical production\nsystems. You need to identify IOCs and prioritize investigative actions by using Google Cloud's security tools before analyzing raw logs in detail.\nWhat should you do next?",
+    "options": [
+      "In the Security Command Center (SCC) console, apply filters for the cluster and analyze the resulting aggregated findings' timeline and\ndetails for IOCs. Examine the attack path simulations associated with attack exposure scores to prioritize subsequent actions.",
+      "Review threat intelligence feeds within Google Security Operations (SecOps), and enrich any anomalies with context on known IOCs,\nattacker tactics, techniques, and procedures (TTPs), and campaigns.",
+      "Investigate Virtual Machine (VM) Threat Detection findings in Security Command Center (SCC). Filter for VM Threat Detection findings to\ntarget the Compute Engine instances that serve as the nodes for the cluster, and look for malware or rootkits on the nodes.",
+      "Create a Google SecOps SOAR playbook that automatically isolates any GKE resources exhibiting unusual network connections to\nproduction environments and triggers an alert to the incident response team."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 87,
+    "text": "During a high-priority phishing incident at your company, Google Security Operations (SecOps) created and assigned the case to a Tier 1 analyst.\nThe analyst added email headers and attached the malicious file as evidence but failed to escalate the case, violating an internal SLA of 30\nminutes for a phishing response. The delay led to multiple users opening the file before containment actions were initiated. You want to optimize\nthe case management workflow for future high-priority incidents. What should you do?",
+    "options": [
+      "Build a playbook that automatically ingests reported phishing emails, enriches entities with threat intelligence, determines the impact and\nassigns the case for review.",
+      "Change the default case assignment logic to route all phishing alerts to the Tier 2 team.",
+      "Configure a SOAR notification loop that sends escalating email alerts to the Tier 1 analysts, the Tier 2 analysts, and the SOC manager every\nfive minutes until the case is manually reassigned.",
+      "Update the playbook to automatically close phishing cases after 60 minutes if no manual response has occurred."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "A (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 88,
+    "text": "You are writing a Google Security Operations (SecOps) SOAR playbook that uses the VirusTotal v3 integration to look up a URL that was reported\nby a threat hunter in an email. You need to use the results to make a preliminary recommendation on the maliciousness of the URL and set the\nseverity of the alert based on the output. What should you do? (Choose two.)",
+    "options": [
+      "Create a widget that translates the JSON output to a severity score.",
+      "Use the number of detections from the response JSON in a conditional statement to set the severity.",
+      "Verify that the response is accurate by manually checking the URL in VirusTotal",
+      "Pass the response back to the SIEM.",
+      "Use a conditional statement to determine whether to treat the URL as suspicious or benign."
+    ],
+    "answer": [
+      "B",
+      "E"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": true
+  },
+  {
+    "number": 89,
+    "text": "You are using Google Security Operations (SecOps) to hunt for signs of lateral movement through Remote Desktop Protocol (RDP) in your\norganization. You suspect that a compromised account was used to access multiple internal systems within a short time window. You want to\nconstruct a UDM-based search to identify this activity. How should you build this query? (Choose two.)",
+    "options": [
+      "Filter for RDP connections with non-standard ports.",
+      "Filter for events using protocol-level attributes that indicate RDP connections.",
+      "Group events by user identity and time to identify repeated access patterns.",
+      "Correlate events based on the asset role or classification such as database or user workstation.",
+      "Use a saved search to identify all events with the LATERAL_MOVEMENT tag over the past 30 days."
+    ],
+    "answer": [
+      "B",
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": true
+  },
+  {
+    "number": 90,
+    "text": "You are configuring role-based data access controls for two groups of users in Google Security Operations (SecOps). Group A requires access to\nall data, and Group B requires access to all data except data from the \"restricted\" namespace. You need to configure access for these two groups.\nWhat should you do? (Choose two.)",
+    "options": [
+      "Create a custom label with a UDM query to include all labels for Group Assign this data label to Group A in IAM.",
+      "Create a custom label with a UDM query to include all data except the \"restricted\" namespace data for Group Assign this data label to\nGroup B in IAM.",
+      "Create a new data access scope to allow access to the \"restricted\" namespace data for Group A. Assign this data scope to Group A in IAM.",
+      "Create a new data access scope in the Google SecOps SIEM settings to allow access to all data for Group A. Assign this data access scope\nto Group A in IAM.",
+      "Create a new data access scope in the Google SecOps SIEM settings to allow access to all data and exclude the \"restrict\" namespace data\nfor Group B. Assign this data access scope to Group B in IAM."
+    ],
+    "answer": [
+      "D",
+      "E"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": true
+  },
+  {
+    "number": 91,
+    "text": "You are responsible for developing and configuring data ingestion in Google Security Operations (SecOps) for your organization. Your organization\nis using a prebuilt parser to parse a complex but stable and common log source. The parser is working correctly. However, your organization now\nwants you to change the configuration to parse additional fields from the raw logs and map them to UDM fields. What should you do?",
+    "options": [
+      "Design and develop a custom parser.",
+      "Apply any pending updates to the prebuilt parser.",
+      "Implement a parser extension on top of the prebuilt parser.",
+      "Implement middleware to modify the underlying data structure."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 92,
+    "text": "Your company's risk management and compliance team requires regular reporting on compliance with industry standard control frameworks for a\nregulated business unit that continuously adds projects. You need to create a report that includes evidence of non-compliant resources found in\nthis environment. How should you generate this report?",
+    "options": [
+      "Run an audit using the compliance framework in Audit Manager. Export the evaluation for consumption by the second-line team.",
+      "Run queries for the required controls using the Cloud Asset Inventory data stored in BigQuery. Schedule this report to run regularly.",
+      "Implement the control framework using Rego, and deploy this framework in Workload Manager. Schedule a regular report in Workload\nManager.",
+      "Implement the built-in posture for the compliance framework within the Security Command Center (SCC) posture."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "A (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 93,
+    "text": "Your team hunts for threats in a large multinational corporation. You have subscriptions to threat intelligence feeds from third-party sources. You\nwant to implement a solution to continuously compare DNS calls on endpoints to your threat intelligence feeds. What should you do?",
+    "options": [
+      "Use custom modules in Event Threat Detection in Security Command Center (SCC) to correlate feed data with Google Cloud logs.",
+      "Push endpoint logs to BigQuery and use scripts to compare entries to Google Threat intelligence by using a Google Threat Intelligence API\nkey.",
+      "Create a YARA-L rule in Google Security Operations (SecOps) to track matches between the ingested EDR log entries and the entity graph.",
+      "Create a YARA-L rule in Google Security Operations (SecOps) to track matches between the ingested EDR log entries and the VirusTotal\ntable in the entity graph."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 94,
+    "text": "Your company is adopting a multi-cloud environment. You need to configure comprehensive monitoring of threats using Google Security\nOperations (SecOps). You want to start identifying threats as soon as possible. What should you do?",
+    "options": [
+      "Use Gemini to generate YARA-L rules for multi-cloud use cases.",
+      "Use curated detections from the Cloud Threats category to monitor your cloud environment.",
+      "Use curated detections for Applied Threat Intelligence to monitor your company's cloud environment.",
+      "Ask Cloud Customer Care to provide a set of rules recommended by Google to monitor your company's cloud environment."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 95,
+    "text": "You have a close relationship with a vendor who reveals to you privately that they have discovered a vulnerability in their web application that can\nbe exploited in an XSS attack. This application is running on servers in the cloud and on-premises. Before the CVE is released, you want to look for\nsigns of the vulnerability being exploited in your environment. What should you do?",
+    "options": [
+      "Create a YARA-L 2.0 rule to detect a time-ordered series of events where an external inbound connection to a server was followed by a\nprocess on the server that spawned subprocesses previously not seen in the environment.",
+      "Create a YARA-L 2.0 rule to detect high-prevalence binaries on your web server architecture communicating with known command and\ncontrol (C2) nodes. Review inbound traffic from those C2 domains that have only started appearing recently.",
+      "Ask the Gemini Agent in Google Security Operations (SecOps) to search for the latest vulnerabilities in the environment.",
+      "Activate a new Web Security Scanner scan in Security Command Center (SCC), and look for findings related to XSS."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 96,
+    "text": "You have identified a new threat actor group that has several IOCs in Google Threat Intelligence. You want to use some of these IOCs in several\ndetection rules in Google Security Operations (SecOps) to help identify suspicious activity. You want to use the most effective approach. What\nshould you do?",
+    "options": [
+      "Identify the detection rules that apply to the new IOCs, and update the YARA-L logic to reference the threat actor group.",
+      "Add the IOCs to a new or existing reference list, and update the YARA-L logic of detection rules to include the reference list.",
+      "Save the IOCs in a new collection in Google Threat Intelligence. Share this list with other members of the security team to facilitate their\nsearches and rule creation.",
+      "Configure a new data feed in Google SecOps that includes the IOCs. Update the YARA-L logic to reference the new IOCs against applicable\nUDM fields."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 97,
+    "text": "You have noticed that a Google Security Operations (SecOps) detection rule that detects excessive network connections is triggering too\nfrequently and creating too many false positive alerts. You want to improve the rule to reduce the noise without reducing the effectiveness of the\nrule. What change to the detection rule should you implement?",
+    "options": [
+      "Add a threshold in the YARA-L condition: section to ensure that the rule only alerts after a certain number of connections.",
+      "Assign a risk score in the YARA-L outcome: section to prioritize alerts more effectively in the alert queue.",
+      "Include a 10 minute timeframe for the same source and destination of network connections in the YARA-L match: section to aggregate the\nalerts.",
+      "Update the YARA-L events: section to exclude the most common IP addresses involved in the network connection alerts to reduce the\nnumber of alerts."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "C (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 98,
+    "text": "You are a SOC analyst at an organization that uses Google Security Operations (SecOps). You are investigating suspicious activity in your\norganization's environment. Alerts in Google SecOps indicate repeated PowerShell activity on a set of endpoints. Outbound connections are made\nto a domain that does not appear in your threat intelligence feeds. The activity occurs across multiple systems and user accounts. You need to\nsearch across impacted systems and user identities to identify the malicious user and understand the scope of the compromise. What should you\ndo?",
+    "options": [
+      "Perform a YARA-L 2.0 search to correlate activity across impacted systems and users.",
+      "Perform a raw log search for the suspicious domain string, and manually pivot to related user activity.",
+      "Use the User Sign-In Overview dashboard to monitor authentication trends and anomalies across all users.",
+      "Use the Behavioral Analytics dashboard in Risk Analytics to identify abnormal IP-based activity and high-risk user behavior."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "D (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 99,
+    "text": "Your company requires PCI DSS v4.0 compliance for its cardholder data environment (CDE) in Google Cloud. You use a Security Command Center\n(SCC) security posture deployment based on the PCI DSS v4.0 template to monitor for configuration drift. This posture generates a finding\nindicating that a Compute Engine VM within the CDE scope has been configured with an external IP address. You need to take an immediate\naction to remediate the compliance drift identified by this specific SCC posture finding. What should you do?",
+    "options": [
+      "Enable and enforce the constraints/compute.vmExternalIpAccess organization policy constraint at the project level for the project where\nthe VM resides.",
+      "Reconfigure the network interface settings for the VM to explicitly remove the assigned external IP address.",
+      "Remove the CDE-specific tag from the VM to exclude the tag from this particular PCI DSS posture evaluation scan.",
+      "Navigate to the underlying Security Health Analytics (SHA) finding for PUBLIC_IP_ADDRESS on the VM, and mark this finding as fixed."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 100,
+    "text": "You are responsible for managing threat intelligence and IOC lists in your organization. You have compiled a list of IOCs from recent incidents.\nYou want to quickly and efficiently share the IOCs with other teams for collaboration and integration into their operational processes. What should\nyou do?",
+    "options": [
+      "Create a list in Google Security Operations (SecOps), and grant the required access to the other teams.",
+      "Export the IOCs from Google Threat Intelligence in CSV or JSON format, and email the file to the other teams.",
+      "Add the IOCs to a collection in Google Threat Intelligence, and share the collection with the other teams.",
+      "Create a new threat graph in Google Threat Intelligence, and share the graph with the other teams."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "C (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 101,
+    "text": "You are planning log onboarding for a Google Security Operations (SecOps) SIEM deployment in a cloud-heavy enterprise environment. The\ndetection engineering team is requesting log sources that support visibility into:\nUser identity behavior -\nLateral movement -\nPrivilege escalation attempts -\nYou need to determine which telemetry sources are ingested first. Which log source should you prioritize?",
+    "options": [
+      "Cloud access security broker (CASB) logs",
+      "EDR logs",
+      "IAM logs",
+      "Network firewall logs"
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "C (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 102,
+    "text": "You are responsible for selecting and prioritizing potential sources of data to integrate with Google Security Operations (SecOps). Your company\nhas recently started using several Google Cloud services to increase security in its Google Cloud organization. You need to determine which logs\nshould be ingested into Google SecOps to reduce the effort required to write detections. What should you do?",
+    "options": [
+      "Ingest Google Cloud Armor logs by using Cloud Logging.",
+      "Deploy a Bindplane agent to ingest event logs from Compute Engine VMs that provide endpoint visibility.",
+      "Integrate Security Command Center (SCC) into Google SecOps to ingest logs originating from the Google Cloud services.",
+      "Use Google Threat Intelligence to gain insight about threat group behavior and support threat hunting activities."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "C (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 103,
+    "text": "You are developing a security strategy for your organization. You are planning to use Google Security Operations (SecOps) and Google Threat\nIntelligence (GTI). You need to enhance the detection and response across multi-cloud and on-premises systems. How should you integrate these\nproducts? (Choose two.)",
+    "options": [
+      "Ingest GTI IOCs into Google SecOps as security events.",
+      "Ingest on-premises and cloud security logs into Google SecOps SIEM as events.",
+      "Ingest on-premises and cloud security logs into Google SecOps SIEM as entities.",
+      "Use Google SecOps SOAR integrations with GTI for event enrichment.",
+      "Use Google SecOps SOAR integrations with GTI for entity enrichment."
+    ],
+    "answer": [
+      "B",
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": true
+  },
+  {
+    "number": 104,
+    "text": "Your organization is a Google Security Operations (SecOps) customer. The compliance team requires a weekly export of case resolutions and SLA\nmetrics of high and critical severity cases over the past week. The compliance team's post-processing scripts require this data to be formatted as\ntabular data in CSV files, zipped, and delivered to their email each Monday morning. What should you do?",
+    "options": [
+      "Generate a report in SOAR Reports, and schedule delivery of the report.",
+      "Use statistics in search, and configure a Google SecOps SOAR job to format and send the report.",
+      "Build an Advanced Report in SOAR Reports, and schedule delivery of the report.",
+      "Build a detection rule with outcomes, and configure a Google SecOps SOAR job to format and send the report."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "C (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 105,
+    "text": "You are reviewing the results of a UDM search in Google Security Operations (SecOps). The UDM fields shown in the default view are not relevant\nto your search. You want to be able to quickly view the relevant data for your analysis. What should you do?",
+    "options": [
+      "Download the search results as a CSV file, and manipulate the data to display relevant data in a spreadsheet.",
+      "Create a Google SecOps SIEM dashboard based on the search you have run, and visualize the data in an appropriate table or graphical\nformat.",
+      "Select the events of interest, and choose the relevant UDM fields from the event view using the checkboxes. Copy, extract, and analyze the\nUDM fields, and refine the search query.",
+      "Use the columns feature to select or remove columns that are relevant to your analysis."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 106,
+    "text": "Your organization uses the curated detection rule set in Google Security Operations (SecOps) for high priority network indicators. You are finding a\nvast number of false positives coming from your on-premises proxy servers. You need to reduce the number of alerts. What should you do?",
+    "options": [
+      "Configure a rule exclusion for the network.asset.ip field.",
+      "Configure a rule exclusion for the principal.ip field.",
+      "Configure a rule exclusion for the target.domain field.",
+      "Configure a rule exclusion for the target.ip field."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "B (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 107,
+    "text": "Your third-party application data is published in a Pub/Sub topic located in a separate Google Cloud project from your Google Security Operations\n(SecOps) instance. Your attempts to push data from the Pub/Sub topic to Google SecOps have failed. You need to send this data into Google\nSecOps in a low-latency, robust way. What should you do?",
+    "options": [
+      "Push the data to Cloud Logging, and modify the export filter in direct ingestion.",
+      "Enable the Chronicle API in the project that owns the Pub/Sub topic to push the subscription to Google SecOps.",
+      "Create a Cloud Run function that is subscribed to the Pub/Sub topic and uses a Google SecOps Ingestion API key to push the data into\nGoogle SecOps.",
+      "Send Pub/Sub messages to a Cloud Storage bucket. Create an ingestion feed in Google SecOps to read from the bucket. Grant Storage\nAdmin IAM access to the service account."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 108,
+    "text": "Your organization requires the SOC director to be notified by email of escalated incidents and their results before a case is closed. You need to\ncreate a process that automatically sends the email when an escalated case is closed. You need to ensure the email is reliably sent for the\nappropriate cases. What process should you use?",
+    "options": [
+      "Use the Close Case button in the UI to close the case. If the case is marked as an incident, export the case from the UI and email it to the\ndirector.",
+      "Write a job to check closed cases for incident escalation status, pull the case status details if a case has been escalated, and send an\nemail to the director.",
+      "Navigate to the Alert Overview tab to close the Alert. Run a manual action to gather the case details. If the case was escalated, email the\nnotes to the director Use the Close Case action in the UI to close the case.",
+      "Create a playbook block that includes a condition to identify cases that have been escalated. The two resulting branches either close the\nalert and email the notes to the director, or close the alert without sending an email."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 109,
+    "text": "You are a security analyst at an organization that uses Google Security Operations (SecOps). You have identified a new IP address that is known\nto be used by a malicious threat actor to launch network attacks. You need to search for this IP address in Google SecOps using all normalized\nlogs to determine whether any malicious activity has occurred. You want to use the most effective approach. What should you do?",
+    "options": [
+      "Write a YARA-L 2.0 detection rule that searches for events with the IP address.",
+      "Run raw log searches using the IP address as a search term.",
+      "On the Alerts & IOCs page, review results and entries where the IP address appears.",
+      "Write UDM searches using YARA-L 2.0 syntax to find events where the IP address appears."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 110,
+    "text": "You have been tasked with developing a new response process in a playbook to contain an endpoint. The new process should take the following\nactions:\nSend an email to users who do not have a Google Security Operations (SecOps) account to request approval for endpoint containment\nAutomatically continue executing its logic after the user responds\nYou plan to implement this process in the playbook by using the Gmail integration. You want to minimize the amount of effort required by the SOC\nanalyst. What should you do?",
+    "options": [
+      "Set the containment action to 'Manual' and assign the action to the user to execute or skip the containment action.",
+      "Set the containment action to 'Manual' and assign the action to the appropriate tier. Contact the user by email to request approval. The\nanalyst chooses to execute or skip the containment action.",
+      "Use the 'Send Email' action to send an email requesting approval to contain the endpoint, and use the 'Wait For Thread Reply' action to\nreceive the result. The analyst manually contains the endpoint.",
+      "Generate an approval link for the containment action and include the placeholder in the body of the 'Send Email' action. Configure\nadditional playbook logic to manage approved or denied containment actions."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 111,
+    "text": "Your organization plans to ingest logs from an on-premises MySQL database as a new log source into its Google Security Operations (SecOps)\ninstance. You need to create a solution that minimizes effort. What should you do?",
+    "options": [
+      "Configure a third-party API feed in Google SecOps.",
+      "Configure direct ingestion from your Google Cloud organization.",
+      "Configure and deploy a Google SecOps forwarder.",
+      "Configure and deploy a Bindplane collection agent."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "D (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 112,
+    "text": "Your organization is a Google Security Operations (SecOps) customer. You use Google Threat Intelligence to identify cyber threats within your\norganization's threat profile. You believe your organization may have been targeted by a cyber crime group. You need to identify whether your\norganization has been the victim of an attack. What should you do?",
+    "options": [
+      "Implement monitors in the Digital Threat Monitoring feature to identify new compromised credentials, dark web mentions, or data leaks.",
+      "In the Reports & Analysis feature, extract the IOCs from the recent reports, and implement detection rules and lists in Google SecOps to\nidentify whether they are present in your organization's environment.",
+      "Review the Threat Landscape feature to identify threat groups that are active in your industry, research their known MITRE ATT&CK tactics,\ntechniques, and procedures (TTPs) and implement detection rules in Google SecOps.",
+      "In the Vulnerability Intelligence feature, identify new high and critical vulnerabilities in products or technologies that your organization uses\nso they can be patched."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 113,
+    "text": "You are implementing Google Security Operations (SecOps) for your organization. Your organization has their own threat intelligence feed that has\nbeen ingested to Google SecOps by using a native integration with a Malware Information Sharing Platform (MISP). You are working on the\nfollowing detection rule to leverage the command and control (C2) indicators that were ingested into the entity graph.\nWhat code should you add in the detection rule to filter for the domain IOCs?",
+    "options": [
+      "$ioc.graph.metadata.entity_type = \"DOMAIN_NAME\"\n$ioc.graph.metadata.source_type = \"ENTITY_CONTEXT\"",
+      "$ioc.graph.metadata.entity_type = \"DOMAIN_NAME\"\n$ioc.graph.metadata.source_type = \"GLOBAL_CONTEXT\"",
+      "$ioc.graph.metadata.entity_type = \"DOMAIN_NAME\"\n$ioc.graph.metadata.source_type = \"DERIVED_CONTEXT\"",
+      "$ioc.graph.metadata.entity_type = \"DOMAIN_NAME\"\n$ioc.graph.metadata.source_type = \"SOURCE_TYPE_UNSPECIFIED\""
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 114,
+    "text": "You are using Google Security Operations (SecOps) to identify and report a repetitive sequence of brute force SSH login attempts on a Compute\nEngine image that did not result in a successful login. You need to gain visibility into this activity while minimizing impact on your ingestion quota.\nWhich log type should you ingest into Google SecOps?",
+    "options": [
+      "VPC Flow Logs",
+      "Security Command Center Premium (SCCP) findings",
+      "Cloud IDS logs",
+      "Cloud Audit Logs"
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 115,
+    "text": "You are a SOC analyst working a case in Google Security Operations (SecOps). The case contains a file hash that your playbooks have\nautomatically enriched with VirusTotal context and categorized as likely malicious. You need to quickly identify devices and users in your\norganization who have interacted with this file. What should you do?",
+    "options": [
+      "Build a playbook to perform a UDM search matching on the file hash in Google SecOps SIEM.",
+      "Build a playbook to query your threat intelligence platform (TIP) for the presence of the file hash.",
+      "Use a manual action in Google SecOps SOAR to perform a UDM search matching on the file hash in Google SecOps SIEM.",
+      "Use a manual action in Google SecOps SOAR to query your threat intelligence platform (TIP) for the presence of the file hash."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "C (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 116,
+    "text": "You are responsible for monitoring the ingestion of critical Windows server logs to Google Security Operations (SecOps) by using the Bindplane\nagent. You want to receive an immediate notification when no logs have been ingested for over 30 minutes. You want to use the most efficient\nnotification solution. What should you do?",
+    "options": [
+      "Create a new YARA-L rule in Google SecOps SIEM to detect the absence of logs from the server within a 30-minute window.",
+      "Configure a Bindplane agent to send a heartbeat signal to Google SecOps every 15 minutes, and create an alert if two heartbeats are\nmissed.",
+      "Create a new alert policy in Cloud Monitoring that triggers a notification based on the absence of logs from the server's hostname.",
+      "Configure the Windows server to send an email notification if there is an error in the Bindplane process."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 117,
+    "text": "You observe several distinct, low-severity suspicious activities associated with a single internal server. You determine that no single event is a\nhigh-confidence IOC. You need to create a solution that ensures ongoing and heightened scrutiny for this server. What should you do?",
+    "options": [
+      "Schedule a daily Google Security Operations (SecOps) report detailing all activity on this server.",
+      "Develop a YARA-L detection rule specific to this server.",
+      "Add the server to a Google Security Operations (SecOps) watchlist, and monitor the watchlist closely for the next few weeks.",
+      "Create a case, isolate the server from the network, and escalate the case for forensic investigation."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 118,
+    "text": "Your organization recently adopted Google Security Operations (SecOps), and has configured ingestion, parsing and rules for their log sources.\nThe security operations team is currently triaging alerts one at a time using several external product dashboards with alerts and enrichment data.\nYou want to use the case management functionality in Google SecOps to reduce the amount of pivoting between products your SOC analysts are\nrequired to do. You want to minimize development effort. What should you do first?",
+    "options": [
+      "Build a playbook for each detection rule to enrich and remediate alerts relative to the particular threat each rule is designed to detect.",
+      "Build a playbook for each of the noisiest alert sources to gather additional context on the case from the source product.",
+      "Build a job to periodically iterate over recent cases, determine relevant context, and enrich alerts.",
+      "Build a low-priority, catch-all playbook for enrichment of entities in a case using threat intelligence sources."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 119,
+    "text": "You were recently hired as a SOC manager at an organization with an existing Google Security Operations (SecOps) implementation. You need to\nunderstand the current performance by calculating the mean time to respond or remediate (MTTR) for your cases. What should you do?",
+    "options": [
+      "Create a multi-event detection rule to calculate the response metrics in the outcome section based on the entity graph. Create a dashboard\nbased on these metrics.",
+      "Create a dashboard table widget that displays the average case handling times by analyst, case priority, and environment.",
+      "Create a playbook block that can be re-used in all alert playbooks to write timestamps in the case wall after each change to the case. Write\na job to calculate the case metrics.",
+      "Use the playbooks' case stages to capture metrics for each stage change. Create a dashboard based on these metrics."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 120,
+    "text": "You received an IOC from your threat intelligence feed that is identified as a suspicious domain used for command and control (C2). You want to\nuse Google Security Operations (SecOps) to investigate whether this domain appeared in your environment. You want to search for this IOC using\nthe most efficient approach. What should you do?",
+    "options": [
+      "Run a raw log search to search for the domain string.",
+      "Configure a UDM search that queries the DNS section of the network noun.",
+      "Enable Group by Field in scan view to cluster events by hostname.",
+      "Enter the IOC into the IOC Search feature, and wait for detections with this domain to appear in the Case view."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 121,
+    "text": "You are a senior SOC analyst in your organization. You are receiving alerts of traffic to a command and control (C2) IP address. You want to use\nGoogle Security Operations (SecOps) to investigate the IP address associated with the C2 IP address. What should you do?",
+    "options": [
+      "Use Google SecOps SOAR Search to run a playbook designed to investigate the suspicious IP address and identify related outbound and\ninbound traffic.",
+      "Use Google SecOps SOAR Search to identify the cases where the suspicious IP address exists.",
+      "Conduct a Google SecOps SIEM Search that uses src.ip and target.ip to identify outbound and inbound traffic associated with the\nsuspicious IP address.",
+      "Use Google SecOps SIEM Search to query against the grouped ip field, and use the enriched field from the suspicious events to identify\nrelated activity."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "D (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 122,
+    "text": "You are working with your company's analyst team to automate the investigation of phishing alerts ingested directly into Google Security\nOperations (SecOps) SOAR from an email inbox. The analyst team currently uses a SIEM query to search for related information. You need to\ndesign a solution to automatically include the query results in the Google SecOps case without writing any new code. What should you do?",
+    "options": [
+      "Create a custom action in Google SecOps IDE that runs the SIEM query from a playbook through an API call and returns the results.",
+      "Modify the detection rule in the SIEM to include the query results as part of the detection.",
+      "Add a widget to the Default Case View in Google SecOps SOAR that allows the analyst team to query directly from the widget.",
+      "Add an action to the playbook that runs the SIEM query and returns the results."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 123,
+    "text": "Your Google Security Operations (SecOps) instance is generating alerts for unusual login times from multiple user accounts. Your SOC analysts\nare reporting a high number of the alerts are false positives involving service accounts used by scheduled automation tasks. You want to refine\nthe detection logic using entity-level context available in Google SecOps. You want to use the most effective approach. What should you do?",
+    "options": [
+      "Use asset tags to group known automation systems, and exclude them from the alert logic.",
+      "Modify the rule to include the principal.user.type != \"service_account\" condition.",
+      "Update the rule to only alert when the principal.user.email 0/91 and principal.user.userid fields match in the same event.",
+      "Add a reference list of all service accounts, and suppress alerts for any matches on the principal.user.email 0/91 field."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 124,
+    "text": "You are building a detection rule in Google Security Operations (SecOps) to alert on requests to potentially malicious domains. You are planning to\nuse the logs from your network detection and response (NDR) solution but you need to reduce noise and narrow the scope of detections. You\nwant to minimize cost and deploy the solution quickly. What should you do?",
+    "options": [
+      "Ingest logs from a domain monitoring service, and build a multi-event rule that correlates the domains found in your NDR logs with your\ndomain monitoring data.",
+      "Build a Google SecOps SOAR playbook that enriches domain entities in alerts with VirusTotal information and auto-closes cases when no\ndomains are classified as malicious.",
+      "Build a multi-event rule that correlates the domains found in your NDR logs with WHOIS context in the entity graph and sets the risk score\nbased on domain creation time.",
+      "Ingest logs from your threat intelligence platform (TIP), and build a multi-event rule that correlates the domains found in your NDR logs with\nyour threat intelligence data."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 125,
+    "text": "You are helping a new Google Security Operations (SecOps) customer configure access for their SOC team. The Google SecOps administrators\ncurrently have access to the instance. The customer is reporting that new Google SecOps users are not getting authorized to access the instance,\nbut they are able to authenticate to the third-party identity provider (IdP). How should you fix the issue? (Choose two.)",
+    "options": [
+      "Link Google SecOps to a Google Cloud project with the Chronicle API.",
+      "Integrate Google SecOps with the third-party IdP using Workforce Identity Federation.",
+      "Grant the appropriate data access scope to the SOC team's IdP group in IAM.",
+      "Grant the roles/chronicle.viewer role to the SOC team's IdP group in IAM.",
+      "Grant the Basic permission to the appropriate IdP groups in the Google SecOps SOAR Advanced Settings."
+    ],
+    "answer": [
+      "D",
+      "E"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": true
+  },
+  {
+    "number": 126,
+    "text": "You are a security analyst at an organization that uses Google Security Operations (SecOps). Google SecOps triggered a medium severity alert of\nUnusual Cloud Storage Access - High Volume Download for user1@securecloudservices.com from the internal-project-code-repository bucket.\nThis user is a senior developer within your organization who has legitimate access, but their download volume is unusually high and occurs\noutside working hours. You need to investigate this alert. What should you do first?",
+    "options": [
+      "Run a Google SecOps SOAR playbook to suspend user1's bucket access, and review their user timeline.",
+      "Enrich the bucket entity with sensitivity labels and access control list (ACL) data.",
+      "Create a default detection rule in Google SecOps to monitor future high-volume downloads from the bucket, and add user1 to a high-risk\nwatchlist.",
+      "Review user1's timeline in Google SecOps, focusing on network events and resource access immediately preceding the download anomaly."
+    ],
+    "answer": [
+      "D"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 127,
+    "text": "Your company uses Google-managed images on Compute Engine VM instances extensively and has deployed Security Command Center\nEnterprise (SCCE) at the organization level Due to a recent increase in vulnerability exploits, you want to improve visibility into operating system\n(OS) risks for all VMs in your organization. You want to use managed services to enhance security detection capabilities related to these\nvulnerabilities using minimal effort. What should you do?",
+    "options": [
+      "Enable VM Manager across your projects, and allow VM Manager to write findings to SCCE.",
+      "Enable Virtual Machine Threat Detection in SCCE, and allow it to generate findings.",
+      "Set up Google Open Source Vulnerability (OSV)-Scanner to scan all Compute Engine VMs. Configure a Google Security Operations (SecOps)\nforwarder to write logs to your Google SecOps instance.",
+      "Create a custom Security Health Analytics (SHA) scanner to check the sourceImage of the compute disk. Check for matches in a\nvulnerability database."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 128,
+    "text": "You work at a financial services company. You need to detect in near real-time when a Cloud Run functions service agent modifies the IAM policy\nof an Artifact Registry repository. You plan to use Security Command Center (SCC). You want to follow the Google-recommended approach. What\nshould you do?",
+    "options": [
+      "Create a custom Security Health Analytics (SHA) detector that scans Artifact Registry repositories for IAM policy changes. When a change\nis detected identify the principal that made the change.",
+      "Configure a Cloud Logging log sink to export all IAM policy changes to BigQuery, and create a custom dashboard in SCC to visualize the\ndata.",
+      "Use Event Threat Detection in SCC with a custom unexpected Cloud API call rule that detects when a specified principal calls a method\nagainst a resource.",
+      "Implement a Cloud Run function that is triggered by IAM policy changes within the project and sends an alert to SCC using the Security\nCommand Center API."
+    ],
+    "answer": [
+      "C"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 129,
+    "text": "Your Google Security Operations (SecOps) case queue contains a case with IP address entities. You need to determine whether the entities are\ninternal or external assets and ensure that internal IP address entities are marked accordingly upon ingestion into Google SecOps SOAR. What\nshould you do?",
+    "options": [
+      "Indicate your organization's known internal CIDR ranges in the Environment Networks list in the settings.",
+      "Modify the connector logic to perform a secondary lookup against your CMDB and flag incoming entities as internal or external.",
+      "Configure a feed to ingest enrichment data about the networks, and include these fields into your detection outcome.",
+      "Create a custom action to ping the IP address entity from your Remote Agent. If successful, the custom action designates the IP address\nentity as internal."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 130,
+    "text": "Your organization has a standard set of Google Security Operations (SecOps) playbooks that are applied to alerts in different circumstances. One\nplaybook uses an \"All\" trigger that should always be applied if no other more specific playbooks have triggered. You need to ensure that the more\nspecific playbook is attached and not the generic \"All\" playbook when multiple triggers match. What should you do?",
+    "options": [
+      "Set the priority of the \"All\" playbook to a higher value than the priority of the specific playbook to ensure the \"All\" trigger is evaluated after\nthe previous priorities.",
+      "Change the \"All\" trigger to be more precise so that it doesn't trigger when the other playbook is needed.",
+      "In the Outcomes section of the detection rule that is firing your alert, add a specific field to search for the specific playbook to base the\ntrigger on.",
+      "Create a tagging rule in the Google SecOps SOAR settings, and use a tag trigger to trigger the specific playbook."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 131,
+    "text": "You work for a telecommunications company that wants to monitor their multi-region 5G network logs in Google Security Operations (SecOps).\nThe logs are currently only available on-premises and are stored in a standalone network-attached storage (NAS) located in four different regions.\nYou need to ingest the logs into Google SecOps and tag each NAS as a specific log source to avoid IP address aliasing. What should you do?",
+    "options": [
+      "Configure feed management to pull data from each log's location, and configure a namespace for each log source.",
+      "Configure feed management to pull data from each log's location, and configure an ingestion label for each log source.",
+      "Configure a Bindplane agent that collects Syslog from each log's location, and configure a namespace for each log source.",
+      "Configure a Bindplane agent that collects Syslog from each log's location and configure an ingestion label for each log source."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "D (100%)",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 132,
+    "text": "Your organization has recently experienced an increase in security incidents. You need to create a near real-time visualization of activity within the\nlast hour for users and assets that have triggered alerts, categorized by the highest risk scores. What should you do?",
+    "options": [
+      "Navigate to the Alerts & IOCs panel in Google Security Operations (SecOps). Set the showing time to the last hour, and sort by risk score.",
+      "Create a dashboard to display all alerts from the last hour, broken down by entity type and sorted by risk score.",
+      "Navigate to the Risk Analytics dashboard in Google Security Operations (SecOps). Sort the entities by normalized change.",
+      "Create a report using the events table in the BigQuery export that shows all alerts over the last hour broken out by entity type and ordered\nby risk score."
+    ],
+    "answer": [
+      "B"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  },
+  {
+    "number": 133,
+    "text": "You are a security operations engineer in an enterprise that uses Google Security Operations (SecOps). You need to improve your detection\ncoverage and reduce the false positive detection ratio as quickly as possible. What should you do?",
+    "options": [
+      "Enable curated detections to identify threats.",
+      "Develop YARA-L detection rules that focus on threat intelligence.",
+      "Ingest data from your threat intelligence platform (TIP) into Google SecOps.",
+      "Design YARA-L detection rules based on Google SecOps Marketplace use cases."
+    ],
+    "answer": [
+      "A"
+    ],
+    "community_vote": "",
+    "is_multiple_choice": false
+  }
+]
