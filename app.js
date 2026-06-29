@@ -194,14 +194,24 @@ async function loadUserProgress(userId) {
     
     if (data) {
       bookmarks = new Set(data.bookmarks || []);
-      practiceState.answers = data.practice_answers || {};
+      
+      const loadedAnswers = data.practice_answers || {};
+      const savedIndex = loadedAnswers._currentIndex !== undefined ? loadedAnswers._currentIndex : null;
+      delete loadedAnswers._currentIndex;
+      
+      practiceState.answers = loadedAnswers;
       examHistory = data.exam_history || [];
       
-      // Load current practice index from local storage if available
-      const savedPractice = localStorage.getItem('secops_practice_state');
-      if (savedPractice) {
-        const localState = JSON.parse(savedPractice);
-        practiceState.currentIndex = localState.currentIndex || 0;
+      // Load current practice index from Supabase or fallback to local storage
+      if (savedIndex !== null) {
+        practiceState.currentIndex = savedIndex;
+        localStorage.setItem('secops_practice_state', JSON.stringify({ currentIndex: savedIndex }));
+      } else {
+        const savedPractice = localStorage.getItem('secops_practice_state');
+        if (savedPractice) {
+          const localState = JSON.parse(savedPractice);
+          practiceState.currentIndex = localState.currentIndex || 0;
+        }
       }
     } else {
       // Row doesn't exist, create initial row for new user
@@ -226,12 +236,13 @@ async function saveUserProgress() {
   if (!currentUserId) return;
   
   try {
+    const payloadToSave = { ...practiceState.answers, _currentIndex: practiceState.currentIndex };
     const { error } = await supabase
       .from('user_progress')
       .upsert({
         user_id: currentUserId,
         bookmarks: [...bookmarks],
-        practice_answers: practiceState.answers,
+        practice_answers: payloadToSave,
         exam_history: examHistory,
         updated_at: new Date().toISOString()
       });
@@ -476,6 +487,7 @@ function initPractice() {
     practiceState.currentIndex = parseInt(e.target.value);
     localStorage.setItem('secops_practice_state', JSON.stringify({ currentIndex: practiceState.currentIndex }));
     renderPracticeQuestion();
+    saveUserProgress();
   });
   
   document.getElementById('practice-prev-btn').addEventListener('click', () => {
@@ -483,6 +495,7 @@ function initPractice() {
       practiceState.currentIndex--;
       localStorage.setItem('secops_practice_state', JSON.stringify({ currentIndex: practiceState.currentIndex }));
       renderPracticeQuestion();
+      saveUserProgress();
     }
   });
   
@@ -509,6 +522,7 @@ function initPractice() {
       practiceState.currentIndex++;
       localStorage.setItem('secops_practice_state', JSON.stringify({ currentIndex: practiceState.currentIndex }));
       renderPracticeQuestion();
+      saveUserProgress();
     }
   });
 }
