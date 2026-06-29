@@ -223,7 +223,19 @@ async function loadUserProgress(userId) {
       practiceState.answers = {};
       examHistory = [];
       
-      await saveUserProgress(userId);
+      // Explicitly insert the new row to avoid upsert RLS issues later
+      const { error: insertErr } = await supabase
+        .from('user_progress')
+        .insert({
+          user_id: userId,
+          bookmarks: [],
+          practice_answers: {},
+          exam_history: []
+        });
+        
+      if (insertErr) {
+        console.error("Error creating initial user profile:", insertErr);
+      }
     }
   } catch (err) {
     console.error("Error loading progress from database:", err);
@@ -281,13 +293,13 @@ async function saveUserProgress() {
     const payloadToSave = { ...practiceState.answers, _currentIndex: practiceState.currentIndex };
     const { error } = await supabase
       .from('user_progress')
-      .upsert({
-        user_id: currentUserId,
+      .update({
         bookmarks: [...bookmarks],
         practice_answers: payloadToSave,
         exam_history: examHistory,
         updated_at: new Date().toISOString()
-      });
+      })
+      .eq('user_id', currentUserId);
       
     if (error) throw error;
     setSyncStatus('saved');
