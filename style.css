@@ -744,6 +744,8 @@ body.light-theme .moon-icon { display: none; }
   font-weight: 500;
   margin-bottom: 24px;
   white-space: pre-line;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .options-list {
@@ -788,6 +790,8 @@ body.light-theme .moon-icon { display: none; }
   font-size: 15px;
   line-height: 1.5;
   color: var(--text-primary);
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 /* Option selection state */
