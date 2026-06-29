@@ -74,8 +74,9 @@ document.addEventListener('DOMContentLoaded', async () => {
           activeExam = JSON.parse(savedActiveExam);
         }
         
-        // Switch to dashboard
-        switchView('dashboard-view');
+        // Restore last active view or default to dashboard
+        const lastView = localStorage.getItem('secops_last_view') || 'dashboard-view';
+        switchView(lastView);
       } else {
         // Logged out!
         currentUserId = null;
@@ -404,6 +405,9 @@ function initNavigation() {
 }
 
 function switchView(viewId) {
+  // Save to local storage to maintain state across reloads
+  localStorage.setItem('secops_last_view', viewId);
+  
   // Toggle nav buttons active class
   Object.keys(navButtons).forEach(key => {
     const btn = navButtons[key];
