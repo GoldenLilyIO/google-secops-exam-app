@@ -1356,6 +1356,31 @@ body.light-theme .moon-icon { display: none; }
   color: var(--text-muted);
 }
 
+.cloud-sync-indicator {
+  transition: all 0.3s ease;
+}
+
+.cloud-sync-indicator.syncing {
+  color: var(--accent-color);
+  border-color: rgba(59, 130, 246, 0.5);
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
+.cloud-sync-indicator.error {
+  color: var(--danger-color);
+  border-color: rgba(239, 68, 68, 0.5);
+  background-color: rgba(239, 68, 68, 0.05);
+}
+
+.spin-anim {
+  animation: spin 1.2s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
 /* Custom Scrollbars */
 ::-webkit-scrollbar {
   width: 8px;

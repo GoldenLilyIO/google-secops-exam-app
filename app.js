@@ -63,6 +63,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         emailDisplay.textContent = session.user.email;
         emailDisplay.classList.remove('hidden');
         
+        setSyncStatus('saved');
+        
         // Load progress from Supabase Cloud
         await loadUserProgress(session.user.id);
         
@@ -81,6 +83,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.body.classList.add('auth-active');
         emailDisplay.textContent = '';
         emailDisplay.classList.add('hidden');
+        
+        setSyncStatus('offline');
         
         // Reset states
         resetLocalState();
@@ -232,10 +236,45 @@ async function loadUserProgress(userId) {
   updateHeaderStats();
 }
 
+function setSyncStatus(status) {
+  const indicator = document.getElementById('cloud-sync-indicator');
+  const icon = document.getElementById('cloud-sync-icon');
+  const text = document.getElementById('cloud-sync-text');
+  
+  if (!indicator || !currentUserId) {
+    if (indicator) indicator.classList.add('hidden');
+    return;
+  }
+  
+  indicator.classList.remove('hidden');
+  
+  if (status === 'saving') {
+    indicator.className = 'stat-pill cloud-sync-indicator syncing';
+    icon.setAttribute('data-lucide', 'loader-2');
+    icon.classList.add('spin-anim');
+    text.textContent = 'Saving...';
+  } else if (status === 'saved') {
+    indicator.className = 'stat-pill cloud-sync-indicator';
+    icon.setAttribute('data-lucide', 'cloud');
+    icon.classList.remove('spin-anim');
+    text.textContent = 'Saved';
+  } else if (status === 'error') {
+    indicator.className = 'stat-pill cloud-sync-indicator error';
+    icon.setAttribute('data-lucide', 'alert-circle');
+    icon.classList.remove('spin-anim');
+    text.textContent = 'Error Syncing';
+  }
+  
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
+}
+
 async function saveUserProgress() {
   if (!currentUserId) return;
   
   try {
+    setSyncStatus('saving');
     const payloadToSave = { ...practiceState.answers, _currentIndex: practiceState.currentIndex };
     const { error } = await supabase
       .from('user_progress')
@@ -248,8 +287,10 @@ async function saveUserProgress() {
       });
       
     if (error) throw error;
+    setSyncStatus('saved');
   } catch (err) {
     console.error("Error syncing progress to database:", err);
+    setSyncStatus('error');
   }
   
   updateHeaderStats();
