@@ -1,4 +1,6 @@
-// Google SecOps Exam Prep - Application Logic
+// Google SecOps Exam Prep - Application Logic with Supabase Sync
+
+import { supabase } from './config.js';
 
 // Global state
 let questions = [];
@@ -9,6 +11,10 @@ let practiceState = {
   answers: {} // questionNum -> selectedArray
 };
 let activeExam = null;
+
+// Auth state
+let currentUserId = null;
+let activeAuthTab = 'login'; // 'login' or 'signup'
 
 // DOM Elements
 const views = {
@@ -31,78 +37,216 @@ const themeBtn = document.getElementById('theme-btn');
 // Start-up Initializer
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    // Load local storage states
-    loadStateFromStorage();
-    
-    // Fetch questions JSON
+    // 1. Fetch questions JSON
     const response = await fetch('./questions.json');
     questions = await response.json();
     
-    // Initialize UI views
+    // 2. Initialize UI views
     initTheme();
     initNavigation();
-    initDashboard();
     initPractice();
     initExam();
     initReviewCenter();
+    initAuthUI();
     
-    // Refresh stats headers
-    updateHeaderStats();
+    // 3. Listen to Supabase Auth Changes
+    supabase.auth.onAuthStateChange(async (event, session) => {
+      const authOverlay = document.getElementById('auth-overlay');
+      const emailDisplay = document.getElementById('sidebar-user-email');
+      
+      if (session) {
+        // Logged in!
+        currentUserId = session.user.id;
+        authOverlay.classList.add('hidden');
+        emailDisplay.textContent = session.user.email;
+        emailDisplay.classList.remove('hidden');
+        
+        // Load progress from Supabase Cloud
+        await loadUserProgress(session.user.id);
+        
+        // Recover local active exam if any
+        const savedActiveExam = localStorage.getItem('secops_active_exam');
+        if (savedActiveExam) {
+          activeExam = JSON.parse(savedActiveExam);
+        }
+        
+        // Switch to dashboard
+        switchView('dashboard-view');
+      } else {
+        // Logged out!
+        currentUserId = null;
+        authOverlay.classList.remove('hidden');
+        emailDisplay.textContent = '';
+        emailDisplay.classList.add('hidden');
+        
+        // Reset states
+        resetLocalState();
+        updateHeaderStats();
+      }
+      
+      if (window.lucide) window.lucide.createIcons();
+    });
     
-    // Initialize Lucide icons
-    if (window.lucide) {
-      window.lucide.createIcons();
-    }
   } catch (err) {
     console.error("Error loading application:", err);
   }
 });
 
-// ================= STORAGE & STATE =================
-function loadStateFromStorage() {
-  bookmarks = new Set(JSON.parse(localStorage.getItem('secops_bookmarks') || '[]'));
-  examHistory = JSON.parse(localStorage.getItem('secops_exam_history') || '[]');
+// ================= SUPABASE AUTHENTICATION =================
+function initAuthUI() {
+  const tabLogin = document.getElementById('tab-login');
+  const tabSignup = document.getElementById('tab-signup');
+  const authSubtitle = document.getElementById('auth-subtitle');
+  const authBtnText = document.getElementById('auth-btn-text');
+  const authForm = document.getElementById('auth-form');
+  const authError = document.getElementById('auth-error');
+  const authInfo = document.getElementById('auth-info');
   
-  const savedPractice = localStorage.getItem('secops_practice_state');
-  if (savedPractice) {
-    practiceState = JSON.parse(savedPractice);
-  } else {
-    practiceState = { currentIndex: 0, answers: {} };
-  }
+  // Tab Switching
+  tabLogin.addEventListener('click', () => {
+    tabLogin.classList.add('active');
+    tabSignup.classList.remove('active');
+    authSubtitle.textContent = 'Sign in to access your personal workspace';
+    authBtnText.textContent = 'Sign In';
+    activeAuthTab = 'login';
+    authError.classList.add('hidden');
+    authInfo.classList.add('hidden');
+  });
   
-  const savedActiveExam = localStorage.getItem('secops_active_exam');
-  if (savedActiveExam) {
-    activeExam = JSON.parse(savedActiveExam);
-  }
+  tabSignup.addEventListener('click', () => {
+    tabSignup.classList.add('active');
+    tabLogin.classList.remove('active');
+    authSubtitle.textContent = 'Create a free account to track your progress';
+    authBtnText.textContent = 'Register Account';
+    activeAuthTab = 'signup';
+    authError.classList.add('hidden');
+    authInfo.classList.add('hidden');
+  });
+  
+  // Form Submission
+  authForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const email = document.getElementById('auth-email').value;
+    const password = document.getElementById('auth-password').value;
+    const submitBtn = document.getElementById('auth-submit-btn');
+    
+    // UI Loading state
+    submitBtn.disabled = true;
+    authError.classList.add('hidden');
+    authInfo.classList.add('hidden');
+    
+    try {
+      if (activeAuthTab === 'login') {
+        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+      } else {
+        const { data, error } = await supabase.auth.signUp({ email, password });
+        if (error) throw error;
+        
+        // Check if user is logged in automatically or needs confirmation
+        if (data.user && data.session) {
+          authInfo.textContent = "Registration successful! Loading workspace...";
+          authInfo.classList.remove('hidden');
+        } else {
+          authInfo.textContent = "Sign up successful! Please check your email inbox to verify your account.";
+          authInfo.classList.remove('hidden');
+          submitBtn.disabled = false;
+        }
+      }
+    } catch (err) {
+      console.error("Auth error:", err);
+      authError.textContent = err.message || "An authentication error occurred.";
+      authError.classList.remove('hidden');
+      submitBtn.disabled = false;
+    }
+  });
+  
+  // Sign Out Button
+  document.getElementById('signout-btn').addEventListener('click', async () => {
+    const confirmOut = confirm("Are you sure you want to sign out?");
+    if (confirmOut) {
+      if (activeExam && !activeExam.completed) {
+        clearInterval(activeExam.timerInterval);
+      }
+      activeExam = null;
+      localStorage.removeItem('secops_active_exam');
+      await supabase.auth.signOut();
+    }
+  });
 }
 
-function saveBookmarks() {
-  localStorage.setItem('secops_bookmarks', JSON.stringify([...bookmarks]));
+// ================= DATA SYNCING (CLOUD DATABASE) =================
+async function loadUserProgress(userId) {
+  try {
+    const { data, error } = await supabase
+      .from('user_progress')
+      .select('bookmarks, practice_answers, exam_history')
+      .eq('user_id', userId)
+      .single();
+      
+    if (error && error.code !== 'PGRST116') { // PGRST116 is POSTGRES "no rows found"
+      throw error;
+    }
+    
+    if (data) {
+      bookmarks = new Set(data.bookmarks || []);
+      practiceState.answers = data.practice_answers || {};
+      examHistory = data.exam_history || [];
+      
+      // Load current practice index from local storage if available
+      const savedPractice = localStorage.getItem('secops_practice_state');
+      if (savedPractice) {
+        const localState = JSON.parse(savedPractice);
+        practiceState.currentIndex = localState.currentIndex || 0;
+      }
+    } else {
+      // Row doesn't exist, create initial row for new user
+      bookmarks = new Set();
+      practiceState.answers = {};
+      examHistory = [];
+      
+      await saveUserProgress(userId);
+    }
+  } catch (err) {
+    console.error("Error loading progress from database:", err);
+    // Fallback to empty states if database fails
+    bookmarks = new Set();
+    practiceState.answers = {};
+    examHistory = [];
+  }
+  
   updateHeaderStats();
 }
 
-function savePracticeState() {
-  localStorage.setItem('secops_practice_state', JSON.stringify(practiceState));
+async function saveUserProgress() {
+  if (!currentUserId) return;
+  
+  try {
+    const { error } = await supabase
+      .from('user_progress')
+      .upsert({
+        user_id: currentUserId,
+        bookmarks: [...bookmarks],
+        practice_answers: practiceState.answers,
+        exam_history: examHistory,
+        updated_at: new Date().toISOString()
+      });
+      
+    if (error) throw error;
+  } catch (err) {
+    console.error("Error syncing progress to database:", err);
+  }
+  
   updateHeaderStats();
 }
 
-function saveExamHistory() {
-  localStorage.setItem('secops_exam_history', JSON.stringify(examHistory));
-}
-
-function saveActiveExam() {
-  if (activeExam) {
-    localStorage.setItem('secops_active_exam', JSON.stringify(activeExam));
-  } else {
-    localStorage.removeItem('secops_active_exam');
-  }
-}
-
-function updateHeaderStats() {
-  document.getElementById('header-bookmarked-count').textContent = bookmarks.size;
-  
-  const completedPracticeCount = Object.keys(practiceState.answers).length;
-  document.getElementById('header-completed-count').textContent = `${completedPracticeCount}/${questions.length}`;
+function resetLocalState() {
+  bookmarks = new Set();
+  examHistory = [];
+  practiceState = { currentIndex: 0, answers: {} };
+  activeExam = null;
+  localStorage.removeItem('secops_active_exam');
 }
 
 // ================= THEME MANAGER =================
@@ -151,7 +295,6 @@ function initNavigation() {
   document.getElementById('start-exam-card').addEventListener('click', () => switchView('exam-view'));
   document.getElementById('start-review-card').addEventListener('click', () => {
     switchView('review-view');
-    // Set filter to bookmarked
     document.getElementById('review-filter-bookmarks').click();
   });
 }
@@ -201,7 +344,6 @@ function switchView(viewId) {
 
 // ================= DASHBOARD RENDERER =================
 function initDashboard() {
-  // Calculate completion percentage
   const total = questions.length || 133;
   const completed = Object.keys(practiceState.answers).length;
   const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
@@ -257,7 +399,7 @@ function initDashboard() {
   } else {
     // Show latest exams first
     [...examHistory].reverse().forEach((exam, idx) => {
-      const isPass = exam.score >= 70; // 70% passing threshold
+      const isPass = exam.score >= 70;
       const row = document.createElement('tr');
       row.innerHTML = `
         <td>${new Date(exam.date).toLocaleDateString()} ${new Date(exam.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</td>
@@ -295,28 +437,32 @@ function initPractice() {
   // Listeners
   jumpSelect.addEventListener('change', (e) => {
     practiceState.currentIndex = parseInt(e.target.value);
-    savePracticeState();
+    localStorage.setItem('secops_practice_state', JSON.stringify({ currentIndex: practiceState.currentIndex }));
     renderPracticeQuestion();
   });
   
   document.getElementById('practice-prev-btn').addEventListener('click', () => {
     if (practiceState.currentIndex > 0) {
       practiceState.currentIndex--;
-      savePracticeState();
+      localStorage.setItem('secops_practice_state', JSON.stringify({ currentIndex: practiceState.currentIndex }));
       renderPracticeQuestion();
     }
   });
   
-  document.getElementById('practice-bookmark-btn').addEventListener('click', () => {
+  document.getElementById('practice-bookmark-btn').addEventListener('click', async () => {
     const q = questions[practiceState.currentIndex];
+    const bookmarkBtn = document.getElementById('practice-bookmark-btn');
+    
     if (bookmarks.has(q.number)) {
       bookmarks.delete(q.number);
-      document.getElementById('practice-bookmark-btn').classList.remove('active');
+      bookmarkBtn.classList.remove('active');
     } else {
       bookmarks.add(q.number);
-      document.getElementById('practice-bookmark-btn').classList.add('active');
+      bookmarkBtn.classList.add('active');
     }
-    saveBookmarks();
+    
+    // Sync update to Cloud DB
+    await saveUserProgress();
   });
   
   document.getElementById('practice-submit-btn').addEventListener('click', submitPracticeAnswer);
@@ -324,7 +470,7 @@ function initPractice() {
   document.getElementById('practice-next-btn').addEventListener('click', () => {
     if (practiceState.currentIndex < questions.length - 1) {
       practiceState.currentIndex++;
-      savePracticeState();
+      localStorage.setItem('secops_practice_state', JSON.stringify({ currentIndex: practiceState.currentIndex }));
       renderPracticeQuestion();
     }
   });
@@ -362,7 +508,6 @@ function renderPracticeQuestion() {
   const list = document.getElementById('practice-options-list');
   list.innerHTML = '';
   
-  // Check if user has already answered this in this session
   const previouslySelected = practiceState.answers[q.number];
   
   q.options.forEach((optText, optIdx) => {
@@ -375,7 +520,6 @@ function renderPracticeQuestion() {
       <div class="option-text">${escapeHtml(optText)}</div>
     `;
     
-    // Toggle state selection
     if (previouslySelected && previouslySelected.includes(letter)) {
       item.classList.add('selected');
     }
@@ -387,10 +531,8 @@ function renderPracticeQuestion() {
       }
       
       if (q.is_multiple_choice) {
-        // Toggle selection
         item.classList.toggle('selected');
       } else {
-        // Single choice - clear all others
         list.querySelectorAll('.option-item').forEach(el => el.classList.remove('selected'));
         item.classList.add('selected');
       }
@@ -406,13 +548,12 @@ function renderPracticeQuestion() {
     revealPracticeFeedback(q, previouslySelected);
   }
   
-  // Scroll workspace to top
   document.querySelector('.workspace-layout').scrollIntoView({ behavior: 'smooth', block: 'start' });
   
   if (window.lucide) window.lucide.createIcons();
 }
 
-function submitPracticeAnswer() {
+async function submitPracticeAnswer() {
   const q = questions[practiceState.currentIndex];
   const list = document.getElementById('practice-options-list');
   const selectedItems = list.querySelectorAll('.option-item.selected');
@@ -424,9 +565,9 @@ function submitPracticeAnswer() {
   
   const selectedLetters = Array.from(selectedItems).map(item => item.getAttribute('data-letter'));
   
-  // Save answer state
+  // Save answer state & sync to DB
   practiceState.answers[q.number] = selectedLetters;
-  savePracticeState();
+  await saveUserProgress();
   
   // Hide check answer, show next button
   document.getElementById('practice-submit-btn').classList.add('hidden');
@@ -441,7 +582,6 @@ function revealPracticeFeedback(q, selectedLetters) {
   const list = document.getElementById('practice-options-list');
   const feedbackPane = document.getElementById('practice-feedback-pane');
   
-  // Color the options list based on correctness
   list.querySelectorAll('.option-item').forEach(item => {
     const letter = item.getAttribute('data-letter');
     const isCorrectOpt = q.answer.includes(letter);
@@ -456,7 +596,6 @@ function revealPracticeFeedback(q, selectedLetters) {
     }
   });
   
-  // Build feedback explanation pane
   feedbackPane.classList.remove('hidden');
   document.getElementById('practice-correct-answer-val').textContent = q.answer.join(', ');
   
@@ -480,9 +619,9 @@ function revealPracticeFeedback(q, selectedLetters) {
       `;
       voteBars.appendChild(voteItem);
       
-      // Trigger bar animation in next frame
       setTimeout(() => {
-        voteItem.querySelector('.vote-fill').style.width = `${vote.percentage}%`;
+        const fill = voteItem.querySelector('.vote-fill');
+        if (fill) fill.style.width = `${vote.percentage}%`;
       }, 50);
     });
   } else {
@@ -490,7 +629,6 @@ function revealPracticeFeedback(q, selectedLetters) {
   }
 }
 
-// Parses string like "C (78%) B (22%)" into [{label: 'C', percentage: 78}, ...]
 function parseCommunityVotes(voteStr) {
   if (!voteStr) return [];
   const regex = /([A-E]+)\s*\((\d+)%\)/g;
@@ -526,7 +664,6 @@ function initExam() {
     }
   });
   
-  // Flag checkbox
   const flagCheckbox = document.getElementById('exam-flag-checkbox');
   flagCheckbox.addEventListener('change', (e) => {
     if (!activeExam) return;
@@ -540,7 +677,6 @@ function initExam() {
     updateExamSidebarGrid();
   });
   
-  // Result buttons
   document.getElementById('result-back-dash-btn').addEventListener('click', () => {
     activeExam = null;
     saveActiveExam();
@@ -548,27 +684,24 @@ function initExam() {
   });
   
   document.getElementById('result-review-btn').addEventListener('click', () => {
-    // Redirect to review tab, showing this exam's results
     const lastResultIdx = examHistory.length - 1;
     openExamHistoryReview(lastResultIdx);
   });
 }
 
 function startNewExam() {
-  // Generate 50 random questions
   const shuffled = [...questions].sort(() => 0.5 - Math.random());
   const selected = shuffled.slice(0, 50).map((q, idx) => {
-    // Clone to prevent modifying static questions list
     return { ...q, examIndex: idx };
   });
   
   activeExam = {
     questions: selected,
-    answers: {}, // index -> selected Letters array
-    flags: [], // question numbers flagged
+    answers: {},
+    flags: [],
     currentIndex: 0,
     startTime: Date.now(),
-    timeLeft: 120 * 60, // 120 mins
+    timeLeft: 120 * 60,
     completed: false
   };
   
@@ -596,18 +729,12 @@ function renderExamWorkspace() {
     return;
   }
   
-  // Show active workspace
   setupCard.classList.add('hidden');
   workspace.classList.remove('hidden');
   resultCard.classList.add('hidden');
   
-  // Setup Grid
   initExamSidebarGrid();
-  
-  // Start Timer
   startExamTimer();
-  
-  // Render Current Question
   renderExamQuestion();
 }
 
@@ -616,7 +743,6 @@ function startExamTimer() {
     clearInterval(activeExam.timerInterval);
   }
   
-  // Calculate remaining time relative to current epoch and start duration
   const elapsed = Math.floor((Date.now() - activeExam.startTime) / 1000);
   activeExam.timeLeft = Math.max(0, (120 * 60) - elapsed);
   
@@ -651,7 +777,6 @@ function updateTimerUI() {
   
   timerSpan.textContent = `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
   
-  // Turn timer red in final 5 minutes
   if (activeExam.timeLeft < 300) {
     timerSpan.style.color = 'var(--danger-color)';
   } else {
@@ -668,18 +793,14 @@ function renderExamQuestion() {
   
   const q = activeExam.questions[activeExam.currentIndex];
   
-  // Toggle prev/next disable states
   document.getElementById('exam-prev-btn').disabled = activeExam.currentIndex === 0;
   document.getElementById('exam-next-btn').disabled = activeExam.currentIndex === activeExam.questions.length - 1;
   
-  // Sync flag state
   document.getElementById('exam-flag-checkbox').checked = activeExam.flags.includes(q.number);
   
-  // Render meta & text
   document.getElementById('exam-current-num').textContent = activeExam.currentIndex + 1;
   document.getElementById('exam-question-text').textContent = q.text;
   
-  // Render options list
   const list = document.getElementById('exam-options-list');
   list.innerHTML = '';
   
@@ -707,7 +828,6 @@ function renderExamQuestion() {
         item.classList.add('selected');
       }
       
-      // Save choice instantly
       const activeSelections = Array.from(list.querySelectorAll('.option-item.selected')).map(el => el.getAttribute('data-letter'));
       activeExam.answers[activeExam.currentIndex] = activeSelections;
       saveActiveExam();
@@ -717,10 +837,7 @@ function renderExamQuestion() {
     list.appendChild(item);
   });
   
-  // Highlight active grid box
   updateExamSidebarGrid();
-  
-  // Scroll container to top
   document.querySelector('.exam-main').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -751,7 +868,6 @@ function updateExamSidebarGrid() {
     const box = document.getElementById(`exam-grid-box-${idx}`);
     if (!box) return;
     
-    // Clear classes
     box.className = 'grid-box';
     
     if (idx === activeExam.currentIndex) {
@@ -784,14 +900,12 @@ function finishActiveExam() {
   }
 }
 
-function submitExam() {
+async function submitExam() {
   if (!activeExam) return;
   
-  // Stop timer
   clearInterval(activeExam.timerInterval);
   activeExam.timerInterval = null;
   
-  // Calculate Score
   let correct = 0;
   let incorrect = 0;
   
@@ -829,14 +943,14 @@ function submitExam() {
   };
   
   examHistory.push(historyRecord);
-  saveExamHistory();
   
-  // Set active exam state to completed
+  // Sync to database
+  await saveUserProgress();
+  
   activeExam.completed = true;
   activeExam.resultRecord = historyRecord;
   saveActiveExam();
   
-  // Render results
   renderExamWorkspace();
 }
 
@@ -860,12 +974,11 @@ function renderExamResults() {
     ring.setAttribute('stroke', 'var(--success-color)');
   } else {
     titleEl.textContent = "Keep Practicing!";
-    feedbackEl.textContent = `You scored ${result.score}%, which is below the 70% passing score. Don't worry—review your mistakes and try again!`;
+    feedbackEl.textContent = `You scored ${result.score}%, which is below the 70% passing score. Review your mistakes and try again!`;
     titleEl.style.color = 'var(--danger-color)';
     ring.setAttribute('stroke', 'var(--danger-color)');
   }
   
-  // Update progress ring stroke dash
   const radius = ring.r.baseVal.value;
   const circumference = 2 * Math.PI * radius;
   ring.style.strokeDasharray = `${circumference}`;
@@ -883,21 +996,17 @@ function formatSeconds(secs) {
   return `${minutes}m ${seconds}s`;
 }
 
-// Redirects to Review tab, loaded with a past exam history record
 function openExamHistoryReview(historyIdx) {
   const record = examHistory[historyIdx];
   if (!record) return;
   
-  // Switch to review view pane
   switchView('review-view');
   
-  // Change active filter tab style
   document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
   
   const container = document.getElementById('review-list-container');
   container.innerHTML = '';
   
-  // Header explaining we are viewing mock exam review
   const infoBar = document.createElement('div');
   infoBar.className = 'glass-panel';
   infoBar.style.padding = '16px 24px';
@@ -915,7 +1024,6 @@ function openExamHistoryReview(historyIdx) {
     switchView('dashboard-view');
   });
   
-  // Render exam questions
   record.questions.forEach((q, idx) => {
     const card = renderQuestionCardMarkup(q, q.userAnswer, true);
     container.appendChild(card);
@@ -925,7 +1033,7 @@ function openExamHistoryReview(historyIdx) {
 }
 
 // ================= REVIEW CENTER =================
-let activeReviewFilter = 'all'; // 'all', 'bookmarks', 'incorrect'
+let activeReviewFilter = 'all';
 
 function initReviewCenter() {
   document.getElementById('review-filter-all').addEventListener('click', (e) => {
@@ -956,13 +1064,11 @@ function renderReviewList() {
   
   const searchVal = document.getElementById('review-search-input').value.toLowerCase();
   
-  // Filter core questions array
   let filtered = [...questions];
   
   if (activeReviewFilter === 'bookmarks') {
     filtered = filtered.filter(q => bookmarks.has(q.number));
   } else if (activeReviewFilter === 'incorrect') {
-    // Gather incorrect question numbers from all exam histories
     const incorrectNums = new Set();
     examHistory.forEach(exam => {
       exam.questions.forEach(eq => {
@@ -990,7 +1096,6 @@ function renderReviewList() {
     `;
   } else {
     filtered.forEach(q => {
-      // Check if they answered this in practice mode
       const practiceAns = practiceState.answers[q.number];
       const card = renderQuestionCardMarkup(q, practiceAns, false);
       container.appendChild(card);
@@ -1004,7 +1109,6 @@ function renderQuestionCardMarkup(q, selectedAnswers, isFromExamRecord = false) 
   const card = document.createElement('div');
   card.className = 'review-card glass-panel';
   
-  // Calculate status badge
   let statusClass = 'unanswered';
   let statusText = 'Not Practiced';
   
@@ -1029,7 +1133,6 @@ function renderQuestionCardMarkup(q, selectedAnswers, isFromExamRecord = false) 
     <div class="question-body">
       <p class="question-text" style="font-size: 16px; margin-bottom:16px;">${q.text}</p>
       <div class="options-list">
-        <!-- Render Options -->
         ${q.options.map((optText, optIdx) => {
           const letter = String.fromCharCode(65 + optIdx);
           const isCorrectOpt = q.answer.includes(letter);
@@ -1040,7 +1143,6 @@ function renderQuestionCardMarkup(q, selectedAnswers, isFromExamRecord = false) 
             if (isCorrectOpt) stateClass = 'correct';
             else if (isSelectedOpt) stateClass = 'incorrect';
           } else {
-            // Just highlight correct option if looking in review center
             if (isCorrectOpt) stateClass = 'correct';
           }
           
@@ -1063,7 +1165,6 @@ function renderQuestionCardMarkup(q, selectedAnswers, isFromExamRecord = false) 
         ` : ''}
       </div>
       
-      <!-- Community vote bars -->
       ${q.community_vote ? `
         <div class="vote-distribution-container">
           <h5 style="font-size: 12px; color: var(--text-muted); margin-bottom: 8px;">Community Vote Distribution</h5>
@@ -1083,9 +1184,8 @@ function renderQuestionCardMarkup(q, selectedAnswers, isFromExamRecord = false) 
     </div>
   `;
   
-  // Wire up bookmark button event
   const bkBtn = card.querySelector('.btn-bookmark');
-  bkBtn.addEventListener('click', () => {
+  bkBtn.addEventListener('click', async () => {
     const qNum = parseInt(bkBtn.getAttribute('data-num'));
     if (bookmarks.has(qNum)) {
       bookmarks.delete(qNum);
@@ -1094,15 +1194,24 @@ function renderQuestionCardMarkup(q, selectedAnswers, isFromExamRecord = false) 
       bookmarks.add(qNum);
       bkBtn.classList.add('active');
     }
-    saveBookmarks();
     
-    // If we're on the bookmark filter view, re-render list to drop removed item
+    // Sync update to Cloud DB
+    await saveUserProgress();
+    
     if (activeReviewFilter === 'bookmarks' && !isFromExamRecord) {
       renderReviewList();
     }
   });
   
   return card;
+}
+
+function saveActiveExam() {
+  if (activeExam) {
+    localStorage.setItem('secops_active_exam', JSON.stringify(activeExam));
+  } else {
+    localStorage.removeItem('secops_active_exam');
+  }
 }
 
 // ================= UTILITIES =================
