@@ -14,8 +14,8 @@
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.395.0/dist/umd/lucide.min.js"></script>
   
   <!-- Styling -->
-  <script type="module" crossorigin src="./assets/index-D_VnMAVp.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-DCdFozSS.css">
+  <script type="module" crossorigin src="./assets/index-CtuLeew0.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-BTMcUDuu.css">
 </head>
 <body class="dark-theme">
   <!-- Auth Overlay (Login/Signup Screen) -->
@@ -117,6 +117,9 @@
   <!-- Main Content Wrapper -->
   <main class="main-content">
     <header class="top-header">
+      <button id="mobile-menu-toggle" class="mobile-menu-btn" title="Open Menu">
+        <i data-lucide="menu"></i>
+      </button>
       <h1 class="view-title" id="current-view-title">Dashboard</h1>
       <div class="user-stats-summary">
         <div class="stat-pill" title="Total completed questions">
@@ -437,6 +440,9 @@
 
     </div>
   </main>
+
+  <!-- Sidebar Overlay for mobile -->
+  <div id="sidebar-overlay" class="sidebar-overlay hidden"></div>
 
   <!-- Active JavaScript Main Script -->
 </body>
