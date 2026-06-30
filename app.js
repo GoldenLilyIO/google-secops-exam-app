@@ -192,59 +192,67 @@ function initAuthUI() {
 // ================= DATA SYNCING (CLOUD DATABASE) =================
 async function loadUserProgress(userId) {
   try {
-    const { data, error } = await supabase
-      .from('user_progress')
-      .select('bookmarks, practice_answers, exam_history')
-      .eq('user_id', userId)
-      .single();
+    if (userId) {
+      // Try to fetch existing progress
+      const { data, error } = await supabase
+        .from('user_progress')
+        .select('bookmarks, practice_answers, exam_history')
+        .eq('user_id', userId)
+        .single();
+        
+      if (error && error.code !== 'PGRST116') { // PGRST116 is POSTGRES "no rows found"
+        throw error;
+      }
       
-    if (error && error.code !== 'PGRST116') { // PGRST116 is POSTGRES "no rows found"
-      throw error;
-    }
-    
-    if (data) {
-      bookmarks = new Set(data.bookmarks || []);
-      
-      const loadedAnswers = data.practice_answers || {};
-      const savedIndex = loadedAnswers._currentIndex !== undefined ? loadedAnswers._currentIndex : null;
-      delete loadedAnswers._currentIndex;
-      
-      practiceState.answers = loadedAnswers;
-      examHistory = data.exam_history || [];
-      
-      // Load current practice index from Supabase or fallback to local storage
-      if (savedIndex !== null) {
-        practiceState.currentIndex = savedIndex;
+      if (data) {
+        bookmarks = new Set(data.bookmarks || []);
+        practiceState.answers = data.practice_answers || {};
+        examHistory = data.exam_history || [];
+        
+        // Load current practice index from Supabase or fallback to local storage
+        const savedIndex = data.practice_answers?._currentIndex;
+        if (savedIndex !== undefined && savedIndex !== null) {
+          practiceState.currentIndex = savedIndex;
+        } else {
+          const savedPractice = localStorage.getItem('secops_practice_state');
+          if (savedPractice) {
+            const localState = JSON.parse(savedPractice);
+            practiceState.currentIndex = localState.currentIndex || 0;
+          }
+        }
+        
+        // Cache to local storage
+        localStorage.setItem('secops_practice_state', JSON.stringify(practiceState));
+        localStorage.setItem('secops_bookmarks', JSON.stringify([...bookmarks]));
       } else {
-        const savedPractice = localStorage.getItem('secops_practice_state');
+        // Row doesn't exist or RLS blocked read. Preserve local cache!
+        const savedPractice = JSON.parse(localStorage.getItem('secops_practice_state'));
         if (savedPractice) {
-          const localState = JSON.parse(savedPractice);
-          practiceState.currentIndex = localState.currentIndex || 0;
+          practiceState = savedPractice;
+        }
+        const savedBookmarks = JSON.parse(localStorage.getItem('secops_bookmarks'));
+        if (savedBookmarks) {
+          bookmarks = new Set(savedBookmarks);
+        }
+        
+        // Explicitly try to insert the new row with current local state
+        const payloadToSave = { ...practiceState.answers, _currentIndex: practiceState.currentIndex };
+        const { error: insertErr } = await supabase
+          .from('user_progress')
+          .insert({
+            user_id: userId,
+            bookmarks: [...bookmarks],
+            practice_answers: payloadToSave,
+            exam_history: examHistory,
+            updated_at: new Date().toISOString()
+          });
+          
+        if (insertErr) {
+          console.error("Error creating initial user profile:", insertErr);
+          setSyncStatus('error', 'Sync failed. Database permissions (RLS) issue.');
         }
       }
       
-      // Cache to local storage
-      localStorage.setItem('secops_practice_state', JSON.stringify(practiceState));
-      localStorage.setItem('secops_bookmarks', JSON.stringify([...bookmarks]));
-    } else {
-      // Row doesn't exist, create initial row for new user
-      bookmarks = new Set();
-      practiceState.answers = {};
-      examHistory = [];
-      
-      // Explicitly insert the new row to avoid upsert RLS issues later
-      const { error: insertErr } = await supabase
-        .from('user_progress')
-        .insert({
-          user_id: userId,
-          bookmarks: [],
-          practice_answers: {},
-          exam_history: []
-        });
-        
-      if (insertErr) {
-        console.error("Error creating initial user profile:", insertErr);
-      }
     }
   } catch (err) {
     console.error("Error loading progress from database:", err);
@@ -254,7 +262,7 @@ async function loadUserProgress(userId) {
     if (savedPractice) {
       practiceState = savedPractice;
     }
-    examHistory = [];
+    setSyncStatus('error', 'Offline mode. Progress saved locally.');
   }
   
   updateHeaderStats();
@@ -303,7 +311,7 @@ async function saveUserProgress() {
   try {
     setSyncStatus('saving');
     const payloadToSave = { ...practiceState.answers, _currentIndex: practiceState.currentIndex };
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from('user_progress')
       .update({
         bookmarks: [...bookmarks],
@@ -311,9 +319,26 @@ async function saveUserProgress() {
         exam_history: examHistory,
         updated_at: new Date().toISOString()
       })
-      .eq('user_id', currentUserId);
+      .eq('user_id', currentUserId)
+      .select();
       
     if (error) throw error;
+    
+    if (!data || data.length === 0) {
+      // The update matched 0 rows (row doesn't exist or RLS blocked it)
+      // Try inserting it.
+      const { error: insertErr } = await supabase
+        .from('user_progress')
+        .insert({
+          user_id: currentUserId,
+          bookmarks: [...bookmarks],
+          practice_answers: payloadToSave,
+          exam_history: examHistory,
+          updated_at: new Date().toISOString()
+        });
+      if (insertErr) throw insertErr;
+    }
+    
     setSyncStatus('saved');
   } catch (err) {
     console.error("Error syncing progress to database:", err);
