@@ -4,7 +4,7 @@ import { supabase } from './config.js';
 
 // Global state
 let questions = [];
-let bookmarks = new Set();
+let bookmarks = new Set(JSON.parse(localStorage.getItem('secops_bookmarks')) || []);
 let examHistory = [];
 let practiceState = JSON.parse(localStorage.getItem('secops_practice_state')) || {
   currentIndex: 0,
@@ -210,7 +210,6 @@ async function loadUserProgress(userId) {
       // Load current practice index from Supabase or fallback to local storage
       if (savedIndex !== null) {
         practiceState.currentIndex = savedIndex;
-        localStorage.setItem('secops_practice_state', JSON.stringify({ currentIndex: savedIndex }));
       } else {
         const savedPractice = localStorage.getItem('secops_practice_state');
         if (savedPractice) {
@@ -218,6 +217,10 @@ async function loadUserProgress(userId) {
           practiceState.currentIndex = localState.currentIndex || 0;
         }
       }
+      
+      // Cache to local storage
+      localStorage.setItem('secops_practice_state', JSON.stringify(practiceState));
+      localStorage.setItem('secops_bookmarks', JSON.stringify([...bookmarks]));
     } else {
       // Row doesn't exist, create initial row for new user
       bookmarks = new Set();
@@ -240,9 +243,12 @@ async function loadUserProgress(userId) {
     }
   } catch (err) {
     console.error("Error loading progress from database:", err);
-    // Fallback to empty states if database fails
-    bookmarks = new Set();
-    practiceState.answers = {};
+    // Fallback to local cache if database fails
+    bookmarks = new Set(JSON.parse(localStorage.getItem('secops_bookmarks')) || []);
+    const savedPractice = JSON.parse(localStorage.getItem('secops_practice_state'));
+    if (savedPractice) {
+      practiceState = savedPractice;
+    }
     examHistory = [];
   }
   
@@ -545,7 +551,7 @@ function initPractice() {
   // Listeners
   jumpSelect.addEventListener('change', (e) => {
     practiceState.currentIndex = parseInt(e.target.value);
-    localStorage.setItem('secops_practice_state', JSON.stringify({ currentIndex: practiceState.currentIndex }));
+    localStorage.setItem('secops_practice_state', JSON.stringify(practiceState));
     renderPracticeQuestion();
     saveUserProgress();
   });
@@ -553,15 +559,16 @@ function initPractice() {
   document.getElementById('practice-prev-btn').addEventListener('click', () => {
     if (practiceState.currentIndex > 0) {
       practiceState.currentIndex--;
-      localStorage.setItem('secops_practice_state', JSON.stringify({ currentIndex: practiceState.currentIndex }));
+      localStorage.setItem('secops_practice_state', JSON.stringify(practiceState));
       renderPracticeQuestion();
       saveUserProgress();
     }
   });
   
-  document.getElementById('practice-bookmark-btn').addEventListener('click', async () => {
+  const bookmarkBtn = document.getElementById('practice-bookmark-btn');
+  bookmarkBtn.addEventListener('click', async () => {
+    if (!currentUserId) return;
     const q = questions[practiceState.currentIndex];
-    const bookmarkBtn = document.getElementById('practice-bookmark-btn');
     
     if (bookmarks.has(q.number)) {
       bookmarks.delete(q.number);
@@ -571,6 +578,7 @@ function initPractice() {
       bookmarkBtn.classList.add('active');
     }
     
+    localStorage.setItem('secops_bookmarks', JSON.stringify([...bookmarks]));
     // Sync update to Cloud DB
     await saveUserProgress();
   });
@@ -580,7 +588,7 @@ function initPractice() {
   document.getElementById('practice-next-btn').addEventListener('click', () => {
     if (practiceState.currentIndex < questions.length - 1) {
       practiceState.currentIndex++;
-      localStorage.setItem('secops_practice_state', JSON.stringify({ currentIndex: practiceState.currentIndex }));
+      localStorage.setItem('secops_practice_state', JSON.stringify(practiceState));
       renderPracticeQuestion();
       saveUserProgress();
     }
@@ -678,6 +686,7 @@ async function submitPracticeAnswer() {
   
   // Save answer state & sync to DB
   practiceState.answers[q.number] = selectedLetters;
+  localStorage.setItem('secops_practice_state', JSON.stringify(practiceState));
   await saveUserProgress();
   
   // Hide check answer, show next button
