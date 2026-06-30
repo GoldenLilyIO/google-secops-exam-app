@@ -35,4 +35,3 @@ jobs:
         with:
           folder: dist
           branch: gh-pages
-          cname: passsecops.pro
