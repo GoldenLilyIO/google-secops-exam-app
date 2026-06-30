@@ -565,17 +565,16 @@ function initPractice() {
     }
   });
   
-  const bookmarkBtn = document.getElementById('practice-bookmark-btn');
-  bookmarkBtn.addEventListener('click', async () => {
-    if (!currentUserId) return;
+  document.getElementById('practice-bookmark-btn').addEventListener('click', async () => {
     const q = questions[practiceState.currentIndex];
+    const btn = document.getElementById('practice-bookmark-btn');
     
     if (bookmarks.has(q.number)) {
       bookmarks.delete(q.number);
-      bookmarkBtn.classList.remove('active');
+      btn.classList.remove('active');
     } else {
       bookmarks.add(q.number);
-      bookmarkBtn.classList.add('active');
+      btn.classList.add('active');
     }
     
     localStorage.setItem('secops_bookmarks', JSON.stringify([...bookmarks]));
