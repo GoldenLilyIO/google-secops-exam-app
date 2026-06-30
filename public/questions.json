@@ -1821,7 +1821,7 @@
     "options": [
       "Use Google SecOps SOAR Search to run a playbook designed to investigate the suspicious IP address and identify related outbound and\ninbound traffic.",
       "Use Google SecOps SOAR Search to identify the cases where the suspicious IP address exists.",
-      "Conduct a Google SecOps SIEM Search that uses src.ip and target.ip to identify outbound and inbound traffic associated with the\nsuspicious IP address.",
+      "Conduct a Google SecOps SIEM Search that uses principal.ip and target.ip to identify outbound and inbound traffic associated with the\nsuspicious IP address.",
       "Use Google SecOps SIEM Search to query against the grouped ip field, and use the enriched field from the suspicious events to identify\nrelated activity."
     ],
     "answer": [
