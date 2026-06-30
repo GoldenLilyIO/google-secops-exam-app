@@ -72,6 +72,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         const savedActiveExam = localStorage.getItem('secops_active_exam');
         if (savedActiveExam) {
           activeExam = JSON.parse(savedActiveExam);
+          if (activeExam.bookmarks) {
+            activeExam.bookmarks = new Set(activeExam.bookmarks);
+          } else {
+            activeExam.bookmarks = new Set();
+          }
         }
         
         // Restore last active view or default to dashboard
@@ -1327,7 +1332,8 @@ function renderQuestionCardMarkup(q, selectedAnswers, isFromExamRecord = false) 
 
 function saveActiveExam() {
   if (activeExam) {
-    localStorage.setItem('secops_active_exam', JSON.stringify(activeExam));
+    const examToSave = { ...activeExam, bookmarks: [...activeExam.bookmarks] };
+    localStorage.setItem('secops_active_exam', JSON.stringify(examToSave));
   } else {
     localStorage.removeItem('secops_active_exam');
   }
