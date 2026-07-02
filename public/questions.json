@@ -348,7 +348,7 @@
   },
   {
     "number": 24,
-    "text": "You are using Google Security Operations (SecOps) to investigate suspicious activity linked to a specific user. You want to identify all assets the\nuser has interacted with over the past seven days to assess potential impact. Your need to understand the user's relationships to endpoints,\nservice accounts, and cloud resources. How should you identify user-to-asset relationships in Google SecOps?",
+    "text": "You are using Google Security Operations (SecOps) to investigate suspicious activity linked to a specific user. You want to identify all assets the\nuser has interacted with over the past seven days to assess potential impact. You need to understand the user's relationships to endpoints,\nservice accounts, and cloud resources. How should you identify user-to-asset relationships in Google SecOps?",
     "options": [
       "Use the Raw Log Scan view to group events by asset ID.",
       "Query for hostnames in UDM Search and filter the results by user.",
